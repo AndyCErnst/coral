@@ -11,12 +11,11 @@ class Fish {
 		this.dis = 0;
 	}
 
-	update(x, y) {
-		let mouse = createVector(mouseX, mouseY);
+	update(x, y, mousePos) {
 		let dir = createVector();
-		this.dis = dist(this.pos.x, this.pos.y, light.pos.x, light.pos.y);
+		this.dis = dist(this.pos.x, this.pos.y, mousePos.x, mousePos.y);
 		if (this.dis < 130) {
-			dir = p5.Vector.sub(this.pos, mouse);
+			dir = p5.Vector.sub(this.pos, mousePos);
 		} else {
 			dir = createVector(x, y);
 		}
@@ -24,18 +23,18 @@ class Fish {
 		this.pos.add(this.vel);
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxspeed);
-
 	}
 
 	tail() {
 		noStroke();
 		push();
+		const alpha = 255 //map(this.dis, 0, 255, 255, 0)
 		angleMode(DEGREES);
 		translate(this.pos.x, this.pos.y);
 		rotate(this.vel.heading() + 90);
 		angleMode(RADIANS);
 		for (let i = 0; i < 17; i++) {
-			fill(150 - i * 7, 150 - i * 7, 200, map(this.dis, 0, 255, 255, 0));
+			fill(150 - i * 7, 150 - i * 7, 200, alpha);
 
 			ellipse(sin(this.xoff) * (i * this.varience), i * (4 * this.varience),
 				this.w - sin(i / 6) * (15 * this.varience),
@@ -62,18 +61,19 @@ class Fish {
 
 	eyes() {
 		push();
+		const alpha = 255 //map(this.dis, 0, 255, 255, 0)
 		angleMode(DEGREES);
 		translate(this.pos.x, this.pos.y);
 		rotate(this.vel.heading() + 90);
-		fill(100, 0, 200, map(this.dis, 0, 255, 255, 0));
+		fill(100, 0, 200, alpha);
 		ellipse(this.h * 0.15, this.h * -0.25, this.w * 0.375, this.h * 0.175);
 		ellipse(this.h * -0.15, this.h * -0.25, this.w * 0.375, this.h * 0.175);
-		fill(0, 100, 200, map(this.dis, 0, 255, 255, 0));
-		stroke(0, 100, 200, map(this.dis, 0, 255, 255, 0));
+		fill(0, 100, 200, alpha);
+		stroke(0, 100, 200, alpha);
 		ellipse(this.h * 0.175, this.h * -0.25, this.w * 0.1875, this.h * 0.1);
 		ellipse(this.h * -0.175, this.h * -0.25, this.w * 0.1875, this.h * 0.1);
 		noStroke();
-		fill(250, map(this.dis, 0, 255, 255, 0));
+		fill(250, alpha);
 		ellipse(this.h * 0.175, this.h * -0.275, this.w * 0.0625, this.h * 0.025);
 		ellipse(this.h * -0.175, this.h * -0.275, this.w * 0.0625, this.h * 0.025);
 		pop();
@@ -94,8 +94,8 @@ class Fish {
 		}
 	}
 
-	render(x, y) {
-		this.update(x, y);
+	render(x, y, mousePos = createVector(0,0)) {
+		this.update(x, y, mousePos);
 		this.checkEdges();
 		this.tail();
 		this.eyes()
