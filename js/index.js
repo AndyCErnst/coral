@@ -18,13 +18,7 @@ Leap.loop(frame => {
   }
 });
 
-function setup() {
-  createCanvas(960, 540);
-  noCursor();
-  light = new Light();
-  for (var i = 0; i < NUM_FISH; i++) {
-    fish.push(new Fish(random(width), random(height), random(0.3, 0.5)));
-  }
+function createButtons() {
   // create buttons
   let totalButtonWidth = 0
   const buttonMargin = 10
@@ -42,6 +36,22 @@ function setup() {
     clearOilButton.html('clear')
     setClearing()
   });
+  const drawingButton = createButton('Draw shape')
+  totalButtonWidth += buttonMargin + drawingButton.size().width
+  drawingButton.position(width - totalButtonWidth, height);
+  drawingButton.mousePressed(() => {
+    drawing = true
+  });
+}
+
+function setup() {
+  createCanvas(960, 540);
+  noCursor();
+  light = new Light();
+  for (var i = 0; i < NUM_FISH; i++) {
+    fish.push(new Fish(random(width), random(height), random(0.3, 0.5)));
+  }
+  createButtons()
 }
 
 function getMousePos() {
@@ -66,7 +76,6 @@ function drawFish() {
   xoff += 0.01;
 }
 
-
 function draw() {
   background(40, 60, 180);
   const seaFloorY = height - 50;
@@ -75,6 +84,6 @@ function draw() {
   drawFish()
   drawLight();
   drawBgLight();
-  drawOil();
+  // drawOil();
+  drawLines();
 }
-
