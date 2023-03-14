@@ -1,14 +1,21 @@
+const bubbleRate = 200;
 let bubbles = []; // array to hold bubble objects
+let bubbleTimer = 0
 
-function setup() {
-  createCanvas(400, 400);
-}
-
-function draw() {
-  background(220);
-
-  let newBubble = new Bubble(mouseX, mouseY);
-  bubbles.push(newBubble);
+function drawBubble() {
+  // create new bubble every `bubbleRate` frames
+  bubbleTimer--;
+  if(bubbleTimer < 1) {
+    bubbleTimer = bubbleRate
+    const numBub = Math.floor(random(1,4))
+    const randY = random(0, width)
+    for(let i = 0; i < numBub; i++) {
+      bubbles.push(new Bubble(randY + 8*i, height+30 + 20*i))
+    }
+    console.log('Framerate: ' +getFrameRate())
+    // remove bubbles off the top of screen
+    bubbles = bubbles.filter(b => b.pos.y - 30 > 0)
+  }
 
   // Draw bubbles
   for (let i = 0; i < bubbles.length; i++) {
@@ -21,17 +28,18 @@ function draw() {
 class Bubble {
   constructor(x, y) {
     this.pos = createVector(x, y); // position of the bubble
-    this.vel = createVector(random(-1, 1), random(-5, -1)); // velocity of the bubble
-    this.radius = random(10, 30); // radius of the bubble
+    this.vel = createVector(random(-0.5, 0.5), random(-1.5, -1)); // velocity of the bubble
+    this.radius = random(5, 15); // radius of the bubble
     this.color = color(200, 200, 255, 100); // color of the bubble
+    this.rand = Math.floor(random(20,30)) // when to wobble
   }
   
   // Update the bubble's position
   update() {
-    this.pos.add(this.vel);
-    if(this.pos - this.radius < 0) {
-        
+    if(bubbleTimer % this.rand === 0){
+      this.vel = createVector(-this.vel.x, this.vel.y)
     }
+    this.pos.add(this.vel);
   }
   
   // Draw the bubble

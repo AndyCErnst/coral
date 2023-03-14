@@ -35,6 +35,7 @@ function createButtons() {
   clearOilButton.mousePressed(() => {
     clearOilButton.html('clear')
     setClearing()
+    vertexes = []
   });
   const drawingButton = createButton('Draw shape')
   totalButtonWidth += buttonMargin + drawingButton.size().width
@@ -84,6 +85,6 @@ function draw() {
   drawFish()
   drawLight();
   drawBgLight();
-  // drawOil();
   drawLines();
+  drawBubble();
 }
