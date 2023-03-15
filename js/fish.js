@@ -107,3 +107,19 @@ class Fish {
     this.eyes()
   }
 }
+
+let fish = [];
+function initFish(num) {
+  for (var i = 0; i < num; i++) {
+    fish.push(new Fish(random(width), random(height), random(0.3, 0.5)));
+  }
+}
+
+function drawFish(pos) {
+  for (let i = 0; i < fish.length; i++) {
+    let x = map(noise(i + fCount), 0, 1, -0.1, 0.1);
+    let y = map(noise(i + xoff + 1), 0, 1, -0.1, 0.1);
+
+    fish[i].render(x, y, pos);
+  }
+}

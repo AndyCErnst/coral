@@ -29,18 +29,23 @@ class Light {
     }
   }
 
+  // drawingContext.shadowOffsetX = offsetX;
+  // drawingContext.shadowOffsetY = offsetY;
+  // drawingContext.shadowBlur = blurriness;
+  // drawingContext.shadowColor = glowColor;
+
 function drawBgLight() {
   // light effect. Draws all rectangles in bg at brightness relative to pointer
-  const rectSize = 33
-  for (let x = 0; x < width; x += rectSize) {
-    for (let y = 0; y < height; y += rectSize) {
-      let d = dist(light.pos.x, light.pos.y, x, y);
-      noStroke();
-      fill(map(d, 0, 255, 255, 0), map(d, 0, 255, 55, 0))
-      rect(x, y, rectSize, rectSize);
-    }
-  }
+  // const rectSize = 33
+  // for (let x = 0; x < width; x += rectSize) {
+  //   for (let y = 0; y < height; y += rectSize) {
+  //     let d = dist(light.pos.x, light.pos.y, x, y);
+  //     noStroke();
+  //     fill(map(d, 0, 255, 255, 0), map(d, 0, 255, 55, 0))
+  //     rect(x, y, rectSize, rectSize);
+  //   }
+  // }
 
-  fill(11, 9, 33, 90);
-  rect(-4, -4, width + 4, height + 4);
+  // fill(11, 9, 33, 90);
+  // rect(-4, -4, width + 4, height + 4);
 }
