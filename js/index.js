@@ -64,7 +64,7 @@ function setup() {
   createButtons()
   coralLayer = createGraphics(960, 540)
   drawCoral()
-  sandLayer = createGraphics(960, 50)
+  sandLayer = createGraphics(960, 150)
   drawSand()
 }
 
@@ -98,8 +98,8 @@ function draw() {
   const mousePos = getMousePos()
   
   drawBleach(mousePos)
+  image(sandLayer, 0,480)
   image(coralLayer, 0, 0)
-  image(sandLayer, 0, 500)
 
   drawFish(mousePos)
   drawLight(mousePos)

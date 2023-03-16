@@ -45,8 +45,6 @@ function sunlight() {
 
 function drawSand() {
   sandLayer.noStroke()
-  sandLayer.fill(194, 178, 128)
-  sandLayer.rect(0, 0, sandLayer.width, sandLayer.height)
   const colors = [
     color(225, 202, 170),
     color(235, 212, 180),
@@ -55,8 +53,10 @@ function drawSand() {
   sandLayer.loadPixels()
   for (let x = 0; x < sandLayer.width; x++) {
     for (let y = 0; y < sandLayer.height; y++) {
-      const c = random(colors)
-      sandLayer.set(x, y, c)
+      if(y + (50 * noise(x/250)) > 40) {
+        const c = random(colors)
+        sandLayer.set(x, y, c)
+      }
     }
   }
   sandLayer.updatePixels()
