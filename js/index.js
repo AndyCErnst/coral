@@ -3,6 +3,7 @@ let fCount = 0 // current frame number, useful as a counter
 const NUM_FISH = 11;
 let xoff = 0; // increased every frame, used as noise offset
 
+let mainCanvas
 let coralLayer
 let handX = 100;
 let handY = 100;
@@ -47,7 +48,7 @@ function createButtons() {
 }
 
 function setup() {
-  createCanvas(960, 540);
+  mainCanvas = createCanvas(960, 540);
   noStroke()
   noCursor();
   light = new Light()
@@ -83,51 +84,22 @@ function drawCoral() {
   ctx.clip()
 }
 
-function drawOcean() {
-  linearGradient(
-    0, 0, //Start point
-    width, 0, //End point
-    color(255,172,9), 
-    color(182,138,0),
-    color(255,216,0),
-    color(255,177,35),
-  );
-  const seaFloorY = height - 50;
-  //   fill(194, 178, 128) // old version
-  rect(0, seaFloorY, width, height - seaFloorY)
-}
-
-//  not working, convert to hsl?
-function sunlight() {
-  linearGradient(
-    width, 0, //Start point
-    0, height, //End point
-    color(247,255,9,0), 
-    color(249,255,16,0.5),
-    color(251,254,22,0),
-    color(253,254,28,0.5),
-    color(254,254,31,0),
-    color(253,254,28,0.5),
-  );
-  // if(fCount % 5 === 0 ){
-    rect(0, 0, width, height)
-  // }
-}
 
 function draw() {
   fCount++
   xoff += 0.01
+
   background(30, 13, 206);
-  const mousePos = getMousePos()
   drawOcean()
+
+  const mousePos = getMousePos()
   
   drawBleach(mousePos)
   image(coralLayer, 0, 0)
-
+  
   drawFish(mousePos)
   drawLight(mousePos)
-  drawBgLight()
   drawLines()
   drawBubble()
-
+  sunlight()
 }
