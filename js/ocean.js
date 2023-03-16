@@ -21,11 +21,6 @@ function drawSurface() {
   endShape(CLOSE)
 }
 
-function drawOcean() {
-  // drawSand()
-  // drawSurface()
-}
-
 function sunlight() {
   push()
   blendMode(ADD)
@@ -43,19 +38,23 @@ function sunlight() {
   pop()
 }
 
+// expensive, do only once
 function drawSand() {
   sandLayer.noStroke()
   const colors = [
     color(225, 202, 170),
     color(235, 212, 180),
     color(250, 228, 204),
-    color(255, 244, 224)]
+    color(255, 244, 224)
+  ]
   sandLayer.loadPixels()
+  const maxValleyDepth = 40
+  const noiseLevel = 250
   for (let x = 0; x < sandLayer.width; x++) {
+    const noiseDepth = maxValleyDepth * noise(x/noiseLevel)
     for (let y = 0; y < sandLayer.height; y++) {
-      if(y + (50 * noise(x/250)) > 40) {
-        const c = random(colors)
-        sandLayer.set(x, y, c)
+      if(y + noiseDepth > maxValleyDepth) {
+        sandLayer.set(x, y, random(colors))
       }
     }
   }
