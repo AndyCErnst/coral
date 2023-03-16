@@ -10,6 +10,7 @@ let handY = 100;
 let light;
 let useMouse = true
 let bleachMask
+let sandLayer
 
 Leap.loop(frame => {
   if (frame.hands.length > 0) {
@@ -47,6 +48,13 @@ function createButtons() {
   });
 }
 
+// get mouse or hand position
+function getMousePos() {
+  let xpos = useMouse ? mouseX : map(round(handX), -width * 0.25, width * 0.25, width, 0)
+  let ypos = useMouse ? mouseY : map(round(handY), -height * 0.75, height, height, 0)
+  return createVector(xpos, ypos)
+}
+
 function setup() {
   mainCanvas = createCanvas(960, 540);
   noStroke()
@@ -54,15 +62,10 @@ function setup() {
   light = new Light()
   initFish(NUM_FISH)
   createButtons()
-  coralLayer = createGraphics(width, height)
+  coralLayer = createGraphics(960, 540)
   drawCoral()
-}
-
-// get mouse or hand position
-function getMousePos() {
-  let xpos = useMouse ? mouseX : map(round(handX), -width * 0.25, width * 0.25, width, 0)
-  let ypos = useMouse ? mouseY : map(round(handY), -height * 0.75, height, height, 0)
-  return createVector(xpos, ypos)
+  sandLayer = createGraphics(960, 50)
+  drawSand()
 }
 
 // light "source" hand indicator
@@ -90,13 +93,14 @@ function draw() {
   xoff += 0.01
 
   background(30, 13, 206);
-  drawOcean()
+  // drawOcean()
 
   const mousePos = getMousePos()
   
   drawBleach(mousePos)
   image(coralLayer, 0, 0)
-  
+  image(sandLayer, 0, 500)
+
   drawFish(mousePos)
   drawLight(mousePos)
   drawLines()

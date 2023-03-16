@@ -22,7 +22,7 @@ function drawSurface() {
 }
 
 function drawOcean() {
-  drawSand()
+  // drawSand()
   // drawSurface()
 }
 
@@ -36,30 +36,28 @@ function sunlight() {
     0,
     height / 2,
     color(252, 252, 63, 0),
-    color(252, 252, 63, 40),
+    color(252, 252, 63, 30),
     6
   )
-  //252, 252, 63
-  // if(fCount % 5 === 0 ){
-  //  rect(0, 0, width, height)
   rect(0, 0, width, height)
-  // }
   pop()
 }
 
 function drawSand() {
-  linearGradient(
-    mainCanvas,
-    0,
-    0, //Start point
-    width,
-    0, //End point
-    color(255, 172, 9),
-    color(182, 138, 0),
-    color(255, 216, 0),
-    color(255, 177, 35)
-  )
-  const seaFloorY = height - 50
-  //   fill(194, 178, 128) // old version
-  rect(0, seaFloorY, width, height - seaFloorY)
+  sandLayer.noStroke()
+  sandLayer.fill(194, 178, 128)
+  sandLayer.rect(0, 0, sandLayer.width, sandLayer.height)
+  const colors = [
+    color(225, 202, 170),
+    color(235, 212, 180),
+    color(250, 228, 204),
+    color(255, 244, 224)]
+  sandLayer.loadPixels()
+  for (let x = 0; x < sandLayer.width; x++) {
+    for (let y = 0; y < sandLayer.height; y++) {
+      const c = random(colors)
+      sandLayer.set(x, y, c)
+    }
+  }
+  sandLayer.updatePixels()
 }
