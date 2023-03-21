@@ -2,7 +2,7 @@
 let fCount = 0 // current frame number, useful as a counter
 const NUM_FISH = 11;
 let xoff = 0; // increased every frame, used as noise offset
-
+let debug = false
 let mainCanvas
 let coralLayer
 let handX = 100;
@@ -66,6 +66,7 @@ function setup() {
   createButtons()
   coralLayer = createGraphics(960, 540)
   drawCoral()
+  genCoralGrid()
   sandLayer = createGraphics(960, 150)
   drawSand()
 }
@@ -83,7 +84,10 @@ function draw() {
   
   const mousePos = getMousePos()
   
-  drawBleach(mousePos)
+  coralLayer.clear()
+  // drawCoral()
+  coralIntersection(mousePos)
+  displayBleach()
   image(sandLayer, 0,480)
   image(coralLayer, 0, 0)
   
@@ -91,6 +95,6 @@ function draw() {
   drawLight(mousePos)
   drawLines()
   drawBubble()
-  
   sunlight()
+  
 }

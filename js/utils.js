@@ -1,3 +1,13 @@
+const everyNthFrame = (n) => fCount % n === 0
+
+// if a point intersects a square
+function intersect({x,y}, sqX, sqY, width, height) {
+    if(x > sqX && x < sqX+width && y > sqY && y < sqY+height) {
+        return true
+    }
+    return false
+}
+
 function linearGradient(canvas, sX, sY, eX, eY, ...colors){
     let gradient = canvas.drawingContext.createLinearGradient(
         sX, sY, eX, eY
