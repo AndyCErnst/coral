@@ -1,16 +1,16 @@
 // Fish and light taken from https://editor.p5js.org/slow_izzm/sketches/YZtS2Rf_c, credit to slow_izzm
 let fCount = 0 // current frame number, useful as a counter
-const NUM_FISH = 11;
 let xoff = 0; // increased every frame, used as noise offset
 let debug = false
+let useMouse = true
 let mainCanvas
 let coralLayer
 let handX = 100;
 let handY = 100;
 let light;
-let useMouse = true
 let bleachMask
 let sandLayer
+const NUM_FISH = 11;
 
 let rate = 0
 function debugInfo() {
@@ -98,7 +98,6 @@ function draw() {
   
   const mousePos = getMousePos()
   
-  // coralLayer.clear()
   drawCoral()
   coralIntersection(mousePos)
   displayBleach()

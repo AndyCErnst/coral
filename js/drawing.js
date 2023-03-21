@@ -8,12 +8,12 @@ function drawLines() {
     stroke(255);
     fill(255)
     for(var i = 1; i < vertexes.length; i++) {
-        const [x1, y1] = vertexes[i-1]
-        const [x2, y2] = vertexes[i]
+        const {x: x1, y: y1} = vertexes[i-1]
+        const {x: x2, y: y2} = vertexes[i]
         line(x1, y1, x2, y2)
     }
     if(lastPoint && drawing) {
-        line(lastPoint[0], lastPoint[1], mouseX, mouseY)
+        line(lastPoint.x, lastPoint.y, mouseX, mouseY)
     }
     beginShape();
     for(var i = 0; i < vertexes.length; i++) {
@@ -29,7 +29,7 @@ function drawLines() {
 
 function mouseClicked() {
     if(drawing && mouseX < width && mouseY < height) {
-        lastPoint = [mouseX, mouseY]
+        lastPoint = vertex(mouseX, mouseY)
         vertexes.push(lastPoint)
     }
 }

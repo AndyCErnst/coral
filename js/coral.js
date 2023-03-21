@@ -51,14 +51,16 @@ function drawCoral() {
   // coralLayer.stroke(255,255,255)
   coralLayer.noStroke()
   for (var i = 0; i < coralPos.length; i++) {
-    const [x2, y2] = coralPos[i]
-    vertex(x2, y2)
+    const [x, y] = coralPos[i]
+    vertex(x, y)
   }
   coralLayer.endShape(CLOSE)
 }
+
+// Expensive, but only needs to happen after drawing a new coral shape.
 function clipMask() {
   let ctx = coralLayer.canvas.getContext('2d')
-  ctx.clip() // this only needs to happen once
+  ctx.clip() 
 }
 
 let totalBleaching = 0
@@ -88,9 +90,7 @@ function displayBleach() {
     )
     coralLayer.ellipse(x, y, bleachSize)
   })
-  // print(total)
-  // print(total / divisions^2)
-  totalBleaching = (total / divisions**2).toFixed(2)
+  totalBleaching = (total / coralGrid.length).toFixed(2)
 }
 
 const BLEACH_RATE = 0.05
@@ -136,6 +136,7 @@ const divisions = 5
 function genCoralGrid() {
   print('generating coral grid')
   coralGrid = []
+  // Find x,y,w,h of coral drawing
   const bounds = coralPos.reduce(
     (acc, [x, y]) => {
       if (x < acc.minX) {
@@ -165,44 +166,28 @@ function genCoralGrid() {
   const xInc = (maxX - minX) / divisions
   const yInc = (maxY - minY) / divisions
   const jitter = xInc / 4
-  strokeWeight(1)
-  stroke(255, 255, 200)
+  const cg = coralPos.map(([x,y]) => createVector(x,y))
+
+  // This reduces the size of the grid section checked, 
+  // removing the "slightly" overlapping rectangles
+  // Shink is reduced from all sides of the rectangle
+  const shrink = 15
+  // create coral grid
   for (var horz = 0; horz < divisions; horz++) {
     for (var vert = 0; vert < divisions; vert++) {
       const x = minX + xInc * horz
       const y = minY + yInc * vert
       const w = xInc
       const h = yInc
+      // each grid section has a center point pushed off center to look more natural
       const c = [
         x + w / 2 + random(-jitter, jitter),
         y + h / 2 + random(-jitter, jitter),
       ]
-      coralGrid.push({ x, y, w, h, b: 0, c })
+      // only add to grid if section overlaps with coral
+      if(collideRectPoly(x + shrink, y + shrink, w - shrink * 2, h - shrink * 2, cg, true)) {
+        coralGrid.push({ x, y, w, h, b: 0, c })
+      }
     }
-  }
-}
-
-
-let bleaching = []
-
-// For manually bleaching (testing)
-function drawBleach(pos) {
-  coralLayer.fill(255, 255, 255, 100)
-  bleaching.forEach((b) => {
-    // remove to vastly improve performance,
-    // but can't erase old marks
-    // coralLayer.ellipse(b.x, b.y, bleachSize, bleachSize)
-  })
-  if (mouseIsPressed && !drawing) {
-    radialGradient(
-      coralLayer,
-      pos.x,
-      pos.y,
-      bleachSize / 2,
-      color(255, 255, 255, 100),
-      color(255, 255, 255, 0)
-    )
-    coralLayer.ellipse(pos.x, pos.y, bleachSize)
-    bleaching.push(pos)
   }
 }
