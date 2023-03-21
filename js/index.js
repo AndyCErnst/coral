@@ -21,6 +21,7 @@ function debugInfo() {
   textAlign(RIGHT);
   fill(255, 255, 255);
   text('fps: '+rate, width-30, 30);
+  text('total bleaching: ' + totalBleaching, width-30, 60);
 }
 
 Leap.loop(frame => {

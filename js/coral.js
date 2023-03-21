@@ -61,16 +61,18 @@ function clipMask() {
   ctx.clip() // this only needs to happen once
 }
 
+let totalBleaching = 0
 const bleachSize = 200
 const bleachThrottle = 0.3
 // Display bleach radial gradients on coral layer
 // based on level of bleaching of each section.
 function displayBleach() {
   coralLayer.colorMode(RGB)
-  
+  let total = 0
   coralGrid.forEach(({ c, b }) => {
     const [x, y] = c
     const bleach = b * bleachSize
+    total += b
     if (b < bleachThrottle) {
       return
     }
@@ -86,6 +88,9 @@ function displayBleach() {
     )
     coralLayer.ellipse(x, y, bleachSize)
   })
+  // print(total)
+  // print(total / divisions^2)
+  totalBleaching = (total / divisions**2).toFixed(2)
 }
 
 const BLEACH_RATE = 0.05
