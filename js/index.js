@@ -12,6 +12,17 @@ let useMouse = true
 let bleachMask
 let sandLayer
 
+let rate = 0
+function debugInfo() {
+  if(everyNthFrame(10)) {
+    rate = Math.round(getFrameRate())
+  }
+  textSize(32);
+  textAlign(RIGHT);
+  fill(255, 255, 255);
+  text('fps: '+rate, width-30, 30);
+}
+
 Leap.loop(frame => {
   if (frame.hands.length > 0) {
     let hand = frame.hands[0];
@@ -32,12 +43,12 @@ function createButtons() {
     useMouse = !useMouse
     motionButton.html(useMouse ?  'Switch to hands' : "Switch to mouse")
   });
-  const clearOilButton = createButton('Clear')
-  totalButtonWidth += buttonMargin + clearOilButton.size().width
-  clearOilButton.position(width - totalButtonWidth, height);
-  clearOilButton.mousePressed(() => {
-    clearOilButton.html('clear')
-    setClearing()
+  const clearButton = createButton('Clear')
+  totalButtonWidth += buttonMargin + clearButton.size().width
+  clearButton.position(width - totalButtonWidth, height);
+  clearButton.mousePressed(() => {
+    clearButton.html('clear')
+    coralGrid.forEach(seg => seg.b = 0)
     vertexes = []
   });
   const drawingButton = createButton('Draw shape')
@@ -66,6 +77,7 @@ function setup() {
   createButtons()
   coralLayer = createGraphics(960, 540)
   drawCoral()
+  clipMask()
   genCoralGrid()
   sandLayer = createGraphics(960, 150)
   drawSand()
@@ -81,14 +93,14 @@ function draw() {
   xoff += 0.01
 
   background(30, 13, 206);
+  image(sandLayer, 0,480)
   
   const mousePos = getMousePos()
   
-  coralLayer.clear()
-  // drawCoral()
+  // coralLayer.clear()
+  drawCoral()
   coralIntersection(mousePos)
   displayBleach()
-  image(sandLayer, 0,480)
   image(coralLayer, 0, 0)
   
   drawFish(mousePos)
@@ -97,4 +109,5 @@ function draw() {
   drawBubble()
   sunlight()
   
+  debugInfo()
 }

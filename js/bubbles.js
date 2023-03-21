@@ -11,7 +11,6 @@ function drawBubble() {
     for(let i = 0; i < numBub; i++) {
       bubbles.push(new Bubble(randY + 8*i, height+30 + 20*i))
     }
-    console.log('Framerate: ' + getFrameRate())
     // remove bubbles off the top of screen
     bubbles = bubbles.filter(b => b.pos.y - 30 > 0)
   }

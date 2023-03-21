@@ -53,35 +53,13 @@ function drawCoral() {
     vertex(x2, y2)
   }
   coralLayer.endShape()
+}
+function clipMask() {
   let ctx = coralLayer.canvas.getContext('2d')
   ctx.clip() // this only needs to happen once
 }
 
 const bleachSize = 60
-let bleaching = []
-
-// For manually bleaching (testing)
-function drawBleach(pos) {
-  coralLayer.fill(255, 255, 255, 100)
-  bleaching.forEach((b) => {
-    // remove to vastly improve performance,
-    // but can't erase old marks
-    // coralLayer.ellipse(b.x, b.y, bleachSize, bleachSize)
-  })
-  if (mouseIsPressed && !drawing) {
-    radialGradient(
-      coralLayer,
-      pos.x,
-      pos.y,
-      bleachSize / 2,
-      color(255, 255, 255, 100),
-      color(255, 255, 255, 0)
-    )
-    coralLayer.ellipse(pos.x, pos.y, bleachSize)
-    bleaching.push(pos)
-  }
-}
-
 // Display bleach radial gradients on coral layer
 // based on level of bleaching of each section.
 function displayBleach() {
@@ -187,5 +165,30 @@ function genCoralGrid() {
       ]
       coralGrid.push({ x, y, w, h, b: 0, c })
     }
+  }
+}
+
+
+let bleaching = []
+
+// For manually bleaching (testing)
+function drawBleach(pos) {
+  coralLayer.fill(255, 255, 255, 100)
+  bleaching.forEach((b) => {
+    // remove to vastly improve performance,
+    // but can't erase old marks
+    // coralLayer.ellipse(b.x, b.y, bleachSize, bleachSize)
+  })
+  if (mouseIsPressed && !drawing) {
+    radialGradient(
+      coralLayer,
+      pos.x,
+      pos.y,
+      bleachSize / 2,
+      color(255, 255, 255, 100),
+      color(255, 255, 255, 0)
+    )
+    coralLayer.ellipse(pos.x, pos.y, bleachSize)
+    bleaching.push(pos)
   }
 }

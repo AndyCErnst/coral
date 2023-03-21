@@ -38,5 +38,6 @@ function doubleClicked() {
     print('Shape vertexes are ', vertexes)
     coralPos = vertexes
     drawCoral()
+    clipMask()
     drawing = false
 }
