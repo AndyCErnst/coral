@@ -41,14 +41,15 @@ function coralPattern() {
   // originalGraphics.drawingContext.shadowOffsetX = 1;
   // originalGraphics.drawingContext.shadowOffsetY = 1;
   // originalGraphics.drawingContext.shadowBlur = 0;
+  // coralLayer.drawingContext.filter = 'blur(8px)';
 }
 
 function drawCoral() {
   coralLayer.clear()
   coralLayer.drawingContext.fillStyle = 'rgb(255, 105, 180)'
-  coralLayer.stroke(255,255,255)
   coralLayer.beginShape()
-  // coralLayer.noStroke()
+  // coralLayer.stroke(255,255,255)
+  coralLayer.noStroke()
   for (var i = 0; i < coralPos.length; i++) {
     const [x2, y2] = coralPos[i]
     vertex(x2, y2)
@@ -60,21 +61,28 @@ function clipMask() {
   ctx.clip() // this only needs to happen once
 }
 
-const bleachSize = 60
+const bleachSize = 200
+const bleachThrottle = 0.3
 // Display bleach radial gradients on coral layer
 // based on level of bleaching of each section.
 function displayBleach() {
   coralLayer.colorMode(RGB)
+  
   coralGrid.forEach(({ c, b }) => {
     const [x, y] = c
     const bleach = b * bleachSize
+    if (b < bleachThrottle) {
+      return
+    }
+    const endOpac = b < 0.5 ? 0.4 : b
     radialGradient(
       coralLayer,
       x,
       y,
       bleach / 2,
-      color(`rgba(255, 255, 255, 1)`),
-      color(255, 255, 255, 0.1)
+      color(`rgba(255, 255, 255, ${endOpac})`),
+      color(`rgba(255, 255, 255, ${endOpac*0.8})`),
+      color(255, 255, 255, 0)
     )
     coralLayer.ellipse(x, y, bleachSize)
   })
@@ -82,7 +90,7 @@ function displayBleach() {
 
 const BLEACH_RATE = 0.05
 function coralIntersection(mousePos) {
-  if (everyNthFrame(5)) {
+  if (everyNthFrame(5) || debug) {
     coralGrid.forEach((section) => {
       const { x, y, w, h, c } = section
 
@@ -119,10 +127,10 @@ function coralIntersection(mousePos) {
  * c: jittered center of the section, [x,y]
  * }
  *  */
+const divisions = 5
 function genCoralGrid() {
   print('generating coral grid')
   coralGrid = []
-  const divisions = 7
   const bounds = coralPos.reduce(
     (acc, [x, y]) => {
       if (x < acc.minX) {

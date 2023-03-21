@@ -14,9 +14,6 @@ let sandLayer
 
 let rate = 0
 function debugInfo() {
-  if(!debug) {
-    return
-  }
   if(everyNthFrame(10)) {
     rate = Math.round(getFrameRate())
   }
