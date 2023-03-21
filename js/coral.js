@@ -45,14 +45,15 @@ function coralPattern() {
 
 function drawCoral() {
   coralLayer.clear()
-  coralLayer.fill(255, 105, 180)
-  coralLayer.noStroke()
+  coralLayer.drawingContext.fillStyle = 'rgb(255, 105, 180)'
+  coralLayer.stroke(255,255,255)
   coralLayer.beginShape()
+  // coralLayer.noStroke()
   for (var i = 0; i < coralPos.length; i++) {
     const [x2, y2] = coralPos[i]
     vertex(x2, y2)
   }
-  coralLayer.endShape()
+  coralLayer.endShape(CLOSE)
 }
 function clipMask() {
   let ctx = coralLayer.canvas.getContext('2d')
@@ -72,7 +73,7 @@ function displayBleach() {
       x,
       y,
       bleach / 2,
-      color(`rgba(255, 255, 255, 1)`), //color(255, 255, 255, 0.5),
+      color(`rgba(255, 255, 255, 1)`),
       color(255, 255, 255, 0.1)
     )
     coralLayer.ellipse(x, y, bleachSize)
