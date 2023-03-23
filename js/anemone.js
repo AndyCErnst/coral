@@ -12,7 +12,7 @@ function drawAnemones() {
   for (let i = 0; i < branches.length; i++) {
     let b = branches[i];
     push();
-    translate(100, height-100);
+    translate(130, height-50);
     rotate(radians(b.startAngle));
     b.branch(b.segments);
     pop();
@@ -21,7 +21,7 @@ function drawAnemones() {
 
 class Branch {
   constructor() {
-    this.segments = random(30, 100);
+    this.segments = random(5, 8);
     this.startAngle = random(-90, 90);
     this.angle = map(this.startAngle, -90, 90, -10, 10);
     this.theta = 0;
@@ -30,13 +30,13 @@ class Branch {
 
   branch(len) {
     len *= 0.75;
-    let t = map(len, 1, 70, 1, 10);
+    let t = map(len, 0.1, 7, 1, 10);
     this.theta = this.angle + sin(len + this.num) * 5;
     strokeWeight(t);
-    line(0, 0, 0, -len);
+    line(0, 0, 0, -len*10);
     ellipse(0, 0, t, t);
-    translate(0, -len);
-    if (len > 5) {
+    translate(0, -len*10);
+    if (len > 2) {
       push();
       rotate(radians(-this.theta));
       this.branch(len);

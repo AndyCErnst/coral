@@ -15,14 +15,19 @@ let sandLayer
 const NUM_FISH = 11;
 
 let rate = 0
+const fps = []
 function debugInfo() {
   if(everyNthFrame(10)) {
-    rate = Math.round(getFrameRate())
+    if(fps.length >= 10) {
+      fps.pop()
+    }
+    fps.push(Math.round(getFrameRate()))
+    rate = Math.floor(fps.reduce((f,a) => f+a, 0)/ fps.length)
   }
   textSize(32);
   textAlign(RIGHT)
   fill(255, 255, 255)
-  text('fps: '+rate, width-30, 30)
+  text('avg fps: '+ rate, width-30, 30)
   text('total bleaching: ' + totalBleaching, width-30, 60)
 }
 
@@ -83,7 +88,7 @@ function getMousePos() {
   let ypos = useMouse ? mouseY : map(handY1, 50, 550, height, 0)
   return createVector(xpos, ypos)
 }
-
+let img
 function setup() {
   // pixelDensity(1) // uncomment if slow, lowers effective resolution
   mainCanvas = createCanvas(960, 540);
@@ -99,13 +104,14 @@ function setup() {
   sandLayer = createGraphics(960, 150)
   drawSand()
   createAnemones()
+  // img = createImg('anenome-test.gif')
+
 }
 
 // light "source" hand indicator
 function drawLight(pos) {
   light.render(pos)
 }
-
 function draw() {
   fCount++
   xoff += 0.01
@@ -126,7 +132,8 @@ function draw() {
   drawLines()
   drawBubble()
   sunlight()
-  
+  // img.position(50, 350)
+
   displayTemperature()
   debugInfo()
 }
