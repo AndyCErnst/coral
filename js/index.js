@@ -18,10 +18,17 @@ function debugInfo() {
     rate = Math.round(getFrameRate())
   }
   textSize(32);
-  textAlign(RIGHT);
+  textAlign(RIGHT)
+  fill(255, 255, 255)
+  text('fps: '+rate, width-30, 30)
+  text('total bleaching: ' + totalBleaching, width-30, 60)
+}
+
+function displayTemperature() {
+  textSize(32);
+  textAlign(LEFT);
   fill(255, 255, 255);
-  text('fps: '+rate, width-30, 30);
-  text('total bleaching: ' + totalBleaching, width-30, 60);
+  text(`+${temp}°C`, 0, 30);
 }
 
 Leap.loop(frame => {
@@ -99,6 +106,7 @@ function draw() {
   const mousePos = getMousePos()
   
   drawCoral()
+
   coralIntersection(mousePos)
   displayBleach()
   image(coralLayer, 0, 0)
@@ -109,5 +117,6 @@ function draw() {
   drawBubble()
   sunlight()
   
+  displayTemperature()
   debugInfo()
 }

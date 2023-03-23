@@ -1,38 +1,58 @@
 let coralPos = [
-  [484, 524],
-  [500, 492],
-  [494, 458],
-  [454, 444],
-  [398, 411],
-  [391, 297],
-  [411, 225],
-  [424, 250],
-  [445, 322],
-  [443, 363],
-  [494, 362],
-  [509, 301],
-  [471, 244],
-  [473, 192],
-  [501, 147],
-  [554, 165],
-  [534, 245],
-  [541, 282],
-  [553, 358],
-  [579, 357],
-  [603, 296],
-  [600, 192],
-  [627, 139],
-  [674, 136],
-  [684, 211],
-  [662, 280],
-  [645, 351],
-  [647, 366],
-  [638, 479],
-  [585, 486],
-  [601, 507],
-  [560, 527],
-  [560, 527],
+  [361, 535],
+  [325, 480],
+  [367, 304],
+  [417, 255],
+  [459, 305],
+  [503, 309],
+  [537, 266],
+  [550, 309],
+  [581, 298],
+  [617, 326],
+  [648, 313],
+  [657, 338],
+  [709, 329],
+  [746, 373],
+  [803, 367],
+  [816, 412],
+  [811, 439],
+  [854, 461],
+  [877, 539],
+  [877, 539],
 ]
+// [484, 524],
+// [500, 492],
+// [494, 458],
+// [454, 444],
+// [398, 411],
+// [391, 297],
+// [411, 225],
+// [424, 250],
+// [445, 322],
+// [443, 363],
+// [494, 362],
+// [509, 301],
+// [471, 244],
+// [473, 192],
+// [501, 147],
+// [554, 165],
+// [534, 245],
+// [541, 282],
+// [553, 358],
+// [579, 357],
+// [603, 296],
+// [600, 192],
+// [627, 139],
+// [674, 136],
+// [684, 211],
+// [662, 280],
+// [645, 351],
+// [647, 366],
+// [638, 479],
+// [585, 486],
+// [601, 507],
+// [560, 527],
+// [560, 527],
 let coralGrid = []
 
 // work in progress
@@ -60,10 +80,12 @@ function drawCoral() {
 // Expensive, but only needs to happen after drawing a new coral shape.
 function clipMask() {
   let ctx = coralLayer.canvas.getContext('2d')
-  ctx.clip() 
+  ctx.clip()
 }
 
+let temp = 0
 let totalBleaching = 0
+const bleachingMax = 0.5
 const bleachSize = 200
 const bleachThrottle = 0.3
 // Display bleach radial gradients on coral layer
@@ -85,15 +107,17 @@ function displayBleach() {
       y,
       bleach / 2,
       color(`rgba(255, 255, 255, ${endOpac})`),
-      color(`rgba(255, 255, 255, ${endOpac*0.8})`),
+      color(`rgba(255, 255, 255, ${endOpac * 0.8})`),
       color(255, 255, 255, 0)
     )
     coralLayer.ellipse(x, y, bleachSize)
   })
   totalBleaching = (total / coralGrid.length).toFixed(2)
+  temp = map(totalBleaching, 0, 0.5, 0, 2)
 }
 
 const BLEACH_RATE = 0.05
+const RECOVER_RATE = 0.005
 function coralIntersection(mousePos) {
   if (everyNthFrame(5) || debug) {
     coralGrid.forEach((section) => {
@@ -108,6 +132,8 @@ function coralIntersection(mousePos) {
           fill(255 * section.b, 0, 255)
           rect(x, y, w, h)
         }
+      } else if (section.b > 0) {
+        section.b -= RECOVER_RATE
       }
       if (debug) {
         noFill()
@@ -166,9 +192,9 @@ function genCoralGrid() {
   const xInc = (maxX - minX) / divisions
   const yInc = (maxY - minY) / divisions
   const jitter = xInc / 4
-  const cg = coralPos.map(([x,y]) => createVector(x,y))
+  const cg = coralPos.map(([x, y]) => createVector(x, y))
 
-  // This reduces the size of the grid section checked, 
+  // This reduces the size of the grid section checked,
   // removing the "slightly" overlapping rectangles
   // Shink is reduced from all sides of the rectangle
   const shrink = 15
@@ -185,7 +211,16 @@ function genCoralGrid() {
         y + h / 2 + random(-jitter, jitter),
       ]
       // only add to grid if section overlaps with coral
-      if(collideRectPoly(x + shrink, y + shrink, w - shrink * 2, h - shrink * 2, cg, true)) {
+      if (
+        collideRectPoly(
+          x + shrink,
+          y + shrink,
+          w - shrink * 2,
+          h - shrink * 2,
+          cg,
+          true
+        )
+      ) {
         coralGrid.push({ x, y, w, h, b: 0, c })
       }
     }

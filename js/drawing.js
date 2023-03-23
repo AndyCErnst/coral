@@ -3,6 +3,9 @@ let vertexes = []
 let drawing = false
 
 function drawLines() {
+    if(!drawing) {
+        return
+    }
     push()
     strokeWeight(2)
     stroke(255);
@@ -12,7 +15,7 @@ function drawLines() {
         const [x2, y2] = vertexes[i]
         line(x1, y1, x2, y2)
     }
-    if(lastPoint && drawing) {
+    if(lastPoint) {
         line(lastPoint[0], lastPoint[1], mouseX, mouseY)
     }
     beginShape();
@@ -20,7 +23,7 @@ function drawLines() {
         const [x2, y2] = vertexes[i]
         vertex(x2, y2)
     }
-    if(lastPoint && drawing) {
+    if(lastPoint) {
         vertex(mouseX, mouseY)
     }
     endShape(CLOSE)
@@ -35,8 +38,9 @@ function mouseClicked() {
 }
 
 function doubleClicked() {
-    print('Shape vertexes are ', vertexes)
+    print('Shape vertexes are ', JSON.stringify(vertexes))
     coralPos = vertexes
+    vertexes = []
     drawCoral()
     clipMask()
     drawing = false
