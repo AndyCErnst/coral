@@ -1,3 +1,4 @@
+// Fish and light taken from https://editor.p5js.org/slow_izzm/sketches/YZtS2Rf_c, credit to slow_izzm
 class Fish {
   constructor(x, y, varience) {
     this.varience = varience
@@ -119,7 +120,7 @@ function initFish(num) {
 
 function drawFish(pos) {
   for (let i = 0; i < fish.length; i++) {
-    let x = map(noise(i + fCount), 0, 1, -0.1, 0.1);
+    let x = map(noise(i + frameCount), 0, 1, -0.1, 0.1);
     let y = map(noise(i + xoff + 1), 0, 1, -0.1, 0.1);
 
     fish[i].render(x, y, pos);

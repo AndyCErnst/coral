@@ -5,7 +5,7 @@ let bubbles = []; // array to hold bubble objects
 function drawBubble() {
   // create new bubble every `bubbleRate` frames
 
-  if(fCount % bubbleRate === 0) {
+  if(frameCount % bubbleRate === 0) {
     const numBub = Math.floor(random(1,4))
     const randY = random(0, width)
     for(let i = 0; i < numBub; i++) {
@@ -35,7 +35,7 @@ class Bubble {
   
   // Update the bubble's position
   update() {
-    if(fCount % this.rand === 0){
+    if(frameCount % this.rand === 0){
       this.vel = createVector(-this.vel.x, this.vel.y)
     }
     this.pos.add(this.vel);

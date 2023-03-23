@@ -1,4 +1,4 @@
-const everyNthFrame = (n) => fCount % n === 0
+const everyNthFrame = (n) => frameCount % n === 0
 
 // if a point intersects a square
 function intersect({x,y}, sqX, sqY, width, height) {

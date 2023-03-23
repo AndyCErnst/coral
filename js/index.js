@@ -1,5 +1,3 @@
-// Fish and light taken from https://editor.p5js.org/slow_izzm/sketches/YZtS2Rf_c, credit to slow_izzm
-let fCount = 0 // current frame number, useful as a counter
 let xoff = 0; // increased every frame, used as noise offset
 let debug = false
 let useMouse = true
@@ -18,11 +16,11 @@ let rate = 0
 const fps = []
 function debugInfo() {
   if(everyNthFrame(10)) {
-    if(fps.length >= 10) {
+    if(fps.length >= 6) {
       fps.pop()
     }
-    fps.push(Math.round(getFrameRate()))
-    rate = Math.floor(fps.reduce((f,a) => f+a, 0)/ fps.length)
+    fps.push(getFrameRate())
+    rate = Math.round(fps.reduce((f,a) => f+a, 0) / fps.length)
   }
   textSize(32);
   textAlign(RIGHT)
@@ -113,7 +111,6 @@ function drawLight(pos) {
   light.render(pos)
 }
 function draw() {
-  fCount++
   xoff += 0.01
 
   background(30, 13, 206);
@@ -123,7 +120,7 @@ function draw() {
   drawAnemones()
   
   drawCoral()
-
+  coralPattern()
   displayBleach()
   image(coralLayer, 0, 0)
   

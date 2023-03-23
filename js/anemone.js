@@ -6,9 +6,11 @@ function createAnemones() {
   }
 }
 
+// see https://openprocessing.org/sketch/1876299 for base code
+// The original one is prettier, but much less performant
 function drawAnemones() {
   stroke(0, 150, 255, 65)
-  fill('#9b4dca');
+  // fill('#9b4dca');
   for (let i = 0; i < branches.length; i++) {
     let b = branches[i];
     push();
@@ -34,7 +36,7 @@ class Branch {
     this.theta = this.angle + sin(len + this.num) * 5;
     strokeWeight(t);
     line(0, 0, 0, -len*10);
-    ellipse(0, 0, t, t);
+    // ellipse(0, 0, t, t);
     translate(0, -len*10);
     if (len > 2) {
       push();
