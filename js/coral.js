@@ -75,7 +75,7 @@ function coralPattern() {
 		let x = noise(frameCount/50 + i/50)*40 + random(50)
 		let y = noise(frameCount/50 + i/50)*70 + random(50)
 		
-		let rr = random(4,12-log(frameCount)/10)
+		let rr = random(2,8-log(frameCount)/10)
 		coralLayer.ellipse(x,y,rr,rr)
 	}
   coralLayer.pop()
