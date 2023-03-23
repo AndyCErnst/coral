@@ -5,8 +5,10 @@ let debug = false
 let useMouse = true
 let mainCanvas
 let coralLayer
-let handX = 100;
-let handY = 100;
+let handX1 = 100;
+let handY1 = 100;
+let handX2 = -100;
+let handY2 = -100;
 let light;
 let bleachMask
 let sandLayer
@@ -33,10 +35,13 @@ function displayTemperature() {
 
 Leap.loop(frame => {
   if (frame.hands.length > 0) {
-    let hand = frame.hands[0];
-    handX = hand.stabilizedPalmPosition[0];
-    handY = hand.stabilizedPalmPosition[1];
-    console.log(`handX ${handX}, hanxY ${handY}`)
+    let [hand1, hand2] = frame.hands
+    handX1 = hand1.stabilizedPalmPosition[0]
+    handY1 = hand1.stabilizedPalmPosition[1]
+    if(hand2) {
+      handX2 = hand2.stabilizedPalmPosition[0]
+      handY2 = hand2.stabilizedPalmPosition[1]
+    }
   }
 });
 
@@ -70,8 +75,12 @@ function createButtons() {
 
 // get mouse or hand position
 function getMousePos() {
-  let xpos = useMouse ? mouseX : map(round(handX), -width * 0.25, width * 0.25, width, 0)
-  let ypos = useMouse ? mouseY : map(round(handY), -height * 0.75, height, height, 0)
+  // hands have odd range and behave irratically near the boundaries
+  // need to `map` significantly inside these bounds to avoid "sticking"
+  // X Range -386.557 269.861
+  // Y Range 75.7235  688.421
+  let xpos = useMouse ? mouseX : map(handX1, -280, 100, 0, width)
+  let ypos = useMouse ? mouseY : map(handY1, 50, 550, height, 0)
   return createVector(xpos, ypos)
 }
 
@@ -107,7 +116,6 @@ function draw() {
   
   drawCoral()
 
-  coralIntersection(mousePos)
   displayBleach()
   image(coralLayer, 0, 0)
   
