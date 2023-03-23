@@ -58,23 +58,24 @@ let coralGrid = []
 const coralColors = ['#541388', '#D90368', '#BEE7B8', '#ebebeb', '#f45b69']
 // work in progress
 function coralPattern() {
-	translate(width/2,height/2)
-	let cSpan = 400
+  let cSpan = 400
+  const { maxY, maxX, minY, minX } = coralBounds
   const counter = frameCount/cSpan
 	let c1 = (int(counter)) % coralColors.length
 	let c2 = (int(counter)+1) % coralColors.length
 	let ratio = (counter - int(counter))
   coralLayer.push()
+	coralLayer.translate((maxX+minX)/2,(maxY+minY)/2)
   coralLayer.fill(lerpColor(color(coralColors[c1]), color(coralColors[c2]), ratio ))
-	for(var i=0;i<80;i++){
-		rotate(frameCount/(40+10*log(frameCount))+i/10)
+	for(var i=0;i<8;i++){
+		coralLayer.rotate(frameCount/(40+10*log(frameCount))+i/10)
 		let dd = frameCount/(30+i)+frameCount/5+sin(i)*150
-		translate(random(dd/2,dd),0)
+		coralLayer.translate(random(dd/2,dd),0)
 		
-		let x = noise(frameCount/50 + i/50, 5000)*40 + random(50)
-		let y = noise(frameCount/50 + i/50, 1000)*70 + random(50)
+		let x = noise(frameCount/50 + i/50)*40 + random(50)
+		let y = noise(frameCount/50 + i/50)*70 + random(50)
 		
-		let rr = random(1,8-log(frameCount)/10)
+		let rr = random(4,12-log(frameCount)/10)
 		coralLayer.ellipse(x,y,rr,rr)
 	}
   coralLayer.pop()
@@ -84,7 +85,7 @@ function drawCoral() {
   coralLayer.clear()
   coralLayer.drawingContext.fillStyle = 'rgb(255, 105, 180)'
   coralLayer.beginShape()
-  // coralLayer.stroke(255,255,255)
+  // coralLayer.stroke(255,255,255) // for debugging
   coralLayer.noStroke()
   for (var i = 0; i < coralPos.length; i++) {
     const [x, y] = coralPos[i]
@@ -113,11 +114,12 @@ function clipMask() {
  * }
  *  */
 const divisions = 5
+let coralBounds = {maxY:0, maxX:0, minY:0, minX:0}
 function genCoralGrid() {
   print('generating coral grid')
   coralGrid = []
   // Find x,y,w,h of coral drawing
-  const bounds = coralPos.reduce(
+  coralBounds = coralPos.reduce(
     (acc, [x, y]) => {
       if (x < acc.minX) {
         acc.minX = x
@@ -141,7 +143,7 @@ function genCoralGrid() {
     }
   )
 
-  const { maxY, maxX, minY, minX } = bounds
+  const { maxY, maxX, minY, minX } = coralBounds
 
   const xInc = (maxX - minX) / divisions
   const yInc = (maxY - minY) / divisions

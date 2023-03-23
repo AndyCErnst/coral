@@ -103,7 +103,7 @@ function setup() {
   drawSand()
   createAnemones()
   // img = createImg('anenome-test.gif')
-
+    // img.position(50, 350) // put this in draw
 }
 
 // light "source" hand indicator
@@ -119,7 +119,7 @@ function draw() {
   const mousePos = getMousePos()
   drawAnemones()
   
-  drawCoral()
+  // drawCoral()
   coralPattern()
   displayBleach()
   image(coralLayer, 0, 0)
@@ -129,7 +129,6 @@ function draw() {
   drawLines()
   drawBubble()
   sunlight()
-  // img.position(50, 350)
 
   displayTemperature()
   debugInfo()
