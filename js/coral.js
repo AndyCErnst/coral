@@ -67,7 +67,7 @@ function coralPattern() {
   coralLayer.push()
 	coralLayer.translate((maxX+minX)/2,(maxY+minY)/2)
   coralLayer.fill(lerpColor(color(coralColors[c1]), color(coralColors[c2]), ratio ))
-	for(var i=0;i<8;i++){
+	for(var i=0;i<80g;i++){
 		coralLayer.rotate(frameCount/(40+10*log(frameCount))+i/10)
 		let dd = frameCount/(30+i)+frameCount/5+sin(i)*150
 		coralLayer.translate(random(dd/2,dd),0)
