@@ -82,7 +82,9 @@ class Fish {
     fill(250, alpha)
     ellipse(this.h * 0.175, this.h * -0.275, this.w * 0.0625, this.h * 0.025)
     ellipse(this.h * -0.175, this.h * -0.275, this.w * 0.0625, this.h * 0.025)
+    angleMode(RADIANS)
     pop()
+    
   }
 
   checkEdges() {

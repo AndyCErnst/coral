@@ -98,6 +98,7 @@ function setup() {
   genCoralGrid()
   sandLayer = createGraphics(960, 150)
   drawSand()
+  createAnemones()
 }
 
 // light "source" hand indicator
@@ -113,6 +114,7 @@ function draw() {
   image(sandLayer, 0,480)
   
   const mousePos = getMousePos()
+  drawAnemones()
   
   drawCoral()
 
