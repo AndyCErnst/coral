@@ -11,9 +11,10 @@ function createAnemones() {
 function drawAnemones() {
   stroke(0, 150, 255, 65)
   // fill('#9b4dca');
+  angleMode(RADIANS)
   for (let i = 0; i < branches.length; i++) {
-    let b = branches[i];
     push();
+    let b = branches[i];
     translate(130, height-50);
     rotate(radians(b.startAngle));
     b.branch(b.segments);

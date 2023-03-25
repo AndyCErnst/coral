@@ -5,7 +5,7 @@ const TEMP_REDUCE_RATE = 0.005
 const MAX_TEMP = 3
 
 function handleTemperature(pos) {
-  if (everyNthFrame(5)) {
+  if (everyNthFrame(7)) {
     markTemperature(pos)
     bleachCoral(temp)
   }
@@ -52,8 +52,6 @@ function thermometer() {
   stroke(255)
   rect(x, y, thermoLen, 12, 20)
 
-  // let tempColor = map(temp, 0, MAX_TEMP, 0, 255)
-  // fill(tempColor, 155 - tempColor, 255 - tempColor)
   noStroke()
   fill(255)
   let redLen = map(temp, 0, MAX_TEMP, 6, thermoLen - 6)

@@ -195,6 +195,6 @@ function displayBleach() {
 function bleachCoral(temp) {
   const divisions = coralGrid.length
   coralGrid.forEach((section, i) => {
-    section.b = map(temp, 0, MAX_TEMP, 0, (divisions - i)/divisions)
+    section.b = max(0, map(temp, 1 + i/divisions, MAX_TEMP, 0, 1))
   })
 }

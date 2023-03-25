@@ -51,6 +51,7 @@ class Bubble {
     stroke(this.stroke)
     strokeWeight(1.5)
     noFill()
+    angleMode(DEGREES)
     arc(this.pos.x, this.pos.y, this.radius*1.5, this.radius*1.5, 190, 260)
     pop()
   }
