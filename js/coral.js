@@ -45,7 +45,8 @@ function newDotPattern() {
 	let ratio = (counter - int(counter))
   const currColor = lerpColor(color(coralColors[c1]), color(coralColors[c2]), ratio)
   const dots = []
-	for(var i=0; i < 10; i++){
+  const numToAdd = map(temp, 0, MAX_TEMP-1, 10, 0)
+	for(var i=0; i < numToAdd; i++){
 		let x = random(minX, maxX)
 		let y = random(minY, maxY)
 		
