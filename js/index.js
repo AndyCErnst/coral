@@ -29,8 +29,6 @@ function debugInfo() {
   text('total bleaching: ' + totalBleaching, width-30, 60)
 }
 
-
-
 Leap.loop(frame => {
   if (frame.hands.length > 0) {
     let [hand1, hand2] = frame.hands

@@ -20,43 +20,11 @@ let coralPos = [
   [877, 539],
   [877, 539],
 ]
-// [484, 524],
-// [500, 492],
-// [494, 458],
-// [454, 444],
-// [398, 411],
-// [391, 297],
-// [411, 225],
-// [424, 250],
-// [445, 322],
-// [443, 363],
-// [494, 362],
-// [509, 301],
-// [471, 244],
-// [473, 192],
-// [501, 147],
-// [554, 165],
-// [534, 245],
-// [541, 282],
-// [553, 358],
-// [579, 357],
-// [603, 296],
-// [600, 192],
-// [627, 139],
-// [674, 136],
-// [684, 211],
-// [662, 280],
-// [645, 351],
-// [647, 366],
-// [638, 479],
-// [585, 486],
-// [601, 507],
-// [560, 527],
-// [560, 527],
+
 let coralGrid = []
 
 const coralColors = ['#541388', '#D90368', '#BEE7B8', '#ebebeb', '#f45b69']
-// work in progress
+const coralDots = []
 function coralPattern() {
   let cSpan = 400
   const { maxY, maxX, minY, minX } = coralBounds
@@ -67,9 +35,9 @@ function coralPattern() {
   coralLayer.push()
 	coralLayer.translate((maxX+minX)/2,(maxY+minY)/2)
   coralLayer.fill(lerpColor(color(coralColors[c1]), color(coralColors[c2]), ratio ))
-	for(var i=0;i<80;i++){
+	for(var i=0; i<80; i++){
 		coralLayer.rotate(frameCount/(40+10*log(frameCount))+i/10)
-		let dd = frameCount/(30+i)+frameCount/5+sin(i)*150
+		let dd = frameCount/(30+i) + frameCount/5 + sin(i)*150
 		coralLayer.translate(random(dd/2,dd),0)
 		
 		let x = noise(frameCount/50 + i/50)*40 + random(50)
@@ -203,5 +171,12 @@ function displayBleach() {
       color(255, 255, 255, 0)
     )
     coralLayer.ellipse(x, y, bleachSize)
+  })
+}
+
+function bleachCoral(temp) {
+  const divisions = coralGrid.length
+  coralGrid.forEach((section, i) => {
+    section.b = map(temp, 0, MAX_TEMP, 0, (divisions - i)/divisions)
   })
 }

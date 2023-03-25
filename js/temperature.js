@@ -8,6 +8,7 @@ const MAX_TEMP = 3
 function handleTemperature(pos) {
   if(everyNthFrame(5)){
     markTemperature(pos)
+    bleachCoral(temp)
   }
   displayTemperature()
 }
