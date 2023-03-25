@@ -25,14 +25,14 @@ let coralGrid = []
 
 
 const coralDots = []
-function coralPattern() {
+function coralPattern(mousePos) {
   if(coralDots.length > 100) {
     coralDots.shift()
   }
   if(everyNthFrame(5)){
     coralDots.push(newDotPattern())
   }
-  drawCoralPattern(coralDots)
+  drawCoralPattern(coralDots, mousePos)
 }
 
 const coralColors = ['#541388', '#d90368', '#bee7b8', '#ebebeb', '#f45b69']
@@ -47,19 +47,22 @@ function newDotPattern() {
   const dots = []
   const numToAdd = map(temp, 0, MAX_TEMP-1, 10, 0)
 	for(var i=0; i < numToAdd; i++){
-		let x = random(minX, maxX)
-		let y = random(minY, maxY)
-		
-		let size = random(3,10)
-    dots.push([x,y,size])
+		const x = random(minX, maxX)
+		const y = random(minY, maxY)
+		const r = random(3,10)
+    dots.push([x,y,r])
 	}
   return [currColor, dots]
 }
 
-function drawCoralPattern(coralDots) {
-  coralDots.forEach(([currColor, dts]) => {
+function drawCoralPattern(coralDots, mousePos) {
+  const xAddAbs = (mousePos.x - width/2) * 0.05
+  const yAddAbs = (mousePos.y - height/2) * 0.05
+  coralDots.forEach(([currColor, dts], i) => {
     coralLayer.fill(currColor)
-    dts.forEach(dot => coralLayer.ellipse(...dot))
+    let xAddRel = xAddAbs * (i/coralDots.length) - 0.5
+    let yAddRel = yAddAbs * (i/coralDots.length) - 0.5
+    dts.forEach(([x,y,r]) => coralLayer.ellipse(x + xAddRel, y + yAddRel, r))
   })
 }
 

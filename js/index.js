@@ -114,7 +114,7 @@ function draw() {
   drawAnemones()
   handleTemperature(mousePos)
   drawCoral()
-  coralPattern()
+  coralPattern(mousePos)
   displayBleach()
   image(coralLayer, 0, 0)
   
