@@ -23,31 +23,45 @@ let coralPos = [
 
 let coralGrid = []
 
-const coralColors = ['#541388', '#D90368', '#BEE7B8', '#ebebeb', '#f45b69']
+
 const coralDots = []
 function coralPattern() {
-  let cSpan = 400
+  if(coralDots.length > 100) {
+    coralDots.shift()
+  }
+  if(everyNthFrame(5)){
+    coralDots.push(newDotPattern())
+  }
+  drawCoralPattern(coralDots)
+}
+
+const coralColors = ['#541388', '#d90368', '#bee7b8', '#ebebeb', '#f45b69']
+function newDotPattern() {
+  const cSpan = 400
   const { maxY, maxX, minY, minX } = coralBounds
   const counter = frameCount/cSpan
 	let c1 = (int(counter)) % coralColors.length
 	let c2 = (int(counter)+1) % coralColors.length
 	let ratio = (counter - int(counter))
-  coralLayer.push()
-	coralLayer.translate((maxX+minX)/2,(maxY+minY)/2)
-  coralLayer.fill(lerpColor(color(coralColors[c1]), color(coralColors[c2]), ratio ))
-	for(var i=0; i<80; i++){
-		coralLayer.rotate(frameCount/(40+10*log(frameCount))+i/10)
-		let dd = frameCount/(30+i) + frameCount/5 + sin(i)*150
-		coralLayer.translate(random(dd/2,dd),0)
+  const currColor = lerpColor(color(coralColors[c1]), color(coralColors[c2]), ratio)
+  const dots = []
+	for(var i=0; i < 10; i++){
+		let x = random(minX, maxX)
+		let y = random(minY, maxY)
 		
-		let x = noise(frameCount/50 + i/50)*40 + random(50)
-		let y = noise(frameCount/50 + i/50)*70 + random(50)
-		
-		let rr = random(2,8-log(frameCount)/10)
-		coralLayer.ellipse(x,y,rr,rr)
+		let size = random(3,10)
+    dots.push([x,y,size])
 	}
-  coralLayer.pop()
+  return [currColor, dots]
 }
+
+function drawCoralPattern(coralDots) {
+  coralDots.forEach(([currColor, dts]) => {
+    coralLayer.fill(currColor)
+    dts.forEach(dot => coralLayer.ellipse(...dot))
+  })
+}
+
 
 function drawCoral() {
   coralLayer.clear()

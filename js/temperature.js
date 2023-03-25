@@ -25,11 +25,9 @@ function markTemperature(pos) {
 
   const totalMovement = mag(max(xMovement) - min(xMovement), max(yMovement) - min(yMovement))
   if(totalMovement > 150) {
-    print('temp increasing')
     const tempIncrease = (totalMovement / 300) * TEMP_INCREASE_RATE
     temp = min(MAX_TEMP, temp + tempIncrease)
   } else {
-    print('temp decreasing')
     temp = max(0, temp - TEMP_REDUCE_RATE)
   }
 }

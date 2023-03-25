@@ -103,6 +103,7 @@ function setup() {
 function drawLight(pos) {
   light.render(pos)
 }
+
 function draw() {
   xoff += 0.01
 
@@ -112,7 +113,7 @@ function draw() {
   const mousePos = getMousePos()
   drawAnemones()
   handleTemperature(mousePos)
-  // drawCoral()
+  drawCoral()
   coralPattern()
   displayBleach()
   image(coralLayer, 0, 0)
