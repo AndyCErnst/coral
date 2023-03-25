@@ -29,7 +29,7 @@ function coralPattern(mousePos) {
   if(coralDots.length > 100) {
     coralDots.shift()
   }
-  if(everyNthFrame(10)){
+  if(everyNthFrame(3)){
     coralDots.push(newDotPattern())
   }
   drawCoralPattern(coralDots, mousePos)
@@ -45,7 +45,7 @@ function newDotPattern() {
 	let ratio = (counter - int(counter))
   const currColor = lerpColor(color(coralColors[c1]), color(coralColors[c2]), ratio)
   const dots = []
-  const numToAdd = map(temp, 0, MAX_TEMP-1, 10, 0)
+  const numToAdd = map(temp, 0, MAX_TEMP-1, 3, 0)
 	for(var i=0; i < numToAdd; i++){
 		const x = random(minX, maxX)
 		const y = random(minY, maxY)
