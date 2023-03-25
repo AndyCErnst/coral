@@ -29,13 +29,13 @@ function coralPattern(mousePos) {
   if(coralDots.length > 100) {
     coralDots.shift()
   }
-  if(everyNthFrame(5)){
+  if(everyNthFrame(10)){
     coralDots.push(newDotPattern())
   }
   drawCoralPattern(coralDots, mousePos)
 }
 
-const coralColors = ['#541388', '#d90368', '#bee7b8', '#ebebeb', '#f45b69']
+let coralColors = ['#541388', '#d90368', '#bee7b8', '#ebebeb', '#f45b69']
 function newDotPattern() {
   const cSpan = 400
   const { maxY, maxX, minY, minX } = coralBounds
