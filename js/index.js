@@ -23,10 +23,10 @@ function debugInfo() {
     rate = Math.round(fps.reduce((f,a) => f+a, 0) / fps.length)
   }
   textSize(32);
-  textAlign(RIGHT)
+  textAlign(LEFT)
   fill(255, 255, 255)
-  text('avg fps: '+ rate, width-30, 30)
-  text('total bleaching: ' + totalBleaching, width-30, 60)
+  text('fps: '+ rate, 30, 30)
+  // text('total bleaching: ' + totalBleaching, 30, 60)
 }
 
 Leap.loop(frame => {

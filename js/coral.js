@@ -35,7 +35,7 @@ function coralPattern(mousePos) {
   drawCoralPattern(coralDots, mousePos)
 }
 
-let coralColors = ['#541388', '#d90368', '#bee7b8', '#ebebeb', '#f45b69']
+let coralColors = ['#bf1a41', '#ff662b', '#af0c0c', '#fe4500'];
 function newDotPattern() {
   const cSpan = 400
   const { maxY, maxX, minY, minX } = coralBounds
@@ -69,7 +69,7 @@ function drawCoralPattern(coralDots, mousePos) {
 
 function drawCoral() {
   coralLayer.clear()
-  coralLayer.drawingContext.fillStyle = 'rgb(255, 105, 180)'
+  coralLayer.drawingContext.fillStyle = 'rgb(255,100,90)'
   coralLayer.beginShape()
   // coralLayer.stroke(255,255,255) // for debugging
   coralLayer.noStroke()
