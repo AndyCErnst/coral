@@ -29,12 +29,7 @@ function debugInfo() {
   text('total bleaching: ' + totalBleaching, width-30, 60)
 }
 
-function displayTemperature() {
-  textSize(32);
-  textAlign(LEFT);
-  fill(255, 255, 255);
-  text(`+${temp}°C`, 0, 30);
-}
+
 
 Leap.loop(frame => {
   if (frame.hands.length > 0) {
@@ -118,7 +113,7 @@ function draw() {
   
   const mousePos = getMousePos()
   drawAnemones()
-  
+  handleTemperature(mousePos)
   // drawCoral()
   coralPattern()
   displayBleach()

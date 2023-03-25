@@ -26,8 +26,8 @@ function displayBleach() {
     )
     coralLayer.ellipse(x, y, bleachSize)
   })
-  totalBleaching = (total / coralGrid.length).toFixed(2)
-  temp = map(totalBleaching, 0, 0.5, 0, 2)
+  // totalBleaching = (total / coralGrid.length).toFixed(2)
+  // temp = map(totalBleaching, 0, 0.5, 0, 2)
 }
 
 
