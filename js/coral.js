@@ -23,49 +23,56 @@ let coralPos = [
 
 let coralGrid = []
 
-
 const coralDots = []
 function coralPattern(mousePos) {
-  if(coralDots.length > 100) {
+  if (coralDots.length > 100) {
     coralDots.shift()
   }
-  if(everyNthFrame(3)){
+  if (everyNthFrame(3)) {
     coralDots.push(newDotPattern())
   }
   drawCoralPattern(coralDots, mousePos)
 }
 
-let coralColors = ['#bf1a41', '#ff662b', '#af0c0c', '#fe4500'];
+let coralColors = ['#bf1a41', '#ff662b', '#af0c0c', '#fe4500']
 function newDotPattern() {
   const cSpan = 400
   const { maxY, maxX, minY, minX } = coralBounds
-  const counter = frameCount/cSpan
-	let c1 = (int(counter)) % coralColors.length
-	let c2 = (int(counter)+1) % coralColors.length
-	let ratio = (counter - int(counter))
-  const currColor = lerpColor(color(coralColors[c1]), color(coralColors[c2]), ratio)
+  const counter = frameCount / cSpan
+  let c1 = int(counter) % coralColors.length
+  let c2 = (int(counter) + 1) % coralColors.length
+  let ratio = counter - int(counter)
+  const currColor = lerpColor(
+    color(coralColors[c1]),
+    color(coralColors[c2]),
+    ratio
+  )
   const dots = []
-  const numToAdd = map(temp, 0, MAX_TEMP-1, 3, 0)
-	for(var i=0; i < numToAdd; i++){
-		const x = random(minX, maxX)
-		const y = random(minY, maxY)
-		const r = random(3,10)
-    dots.push([x,y,r])
-	}
+  const numToAdd = map(temp, 0, MAX_TEMP - 1, 3, 0)
+  for (var i = 0; i < numToAdd; i++) {
+    const x = random(minX, maxX)
+    const y = random(minY, maxY)
+    const r = random(3, 10)
+    dots.push([x, y, r])
+  }
   return [currColor, dots]
 }
 
+// a bit expensive, keep optimization in mind
 function drawCoralPattern(coralDots, mousePos) {
-  const xAddAbs = (mousePos.x - width/2) * 0.05
-  const yAddAbs = (mousePos.y - height/2) * 0.05
-  coralDots.forEach(([currColor, dts], i) => {
+  const xAddAbs = (mousePos.x - width / 2) * 0.05
+  const yAddAbs = (mousePos.y - height / 2) * 0.05
+  for(let i = 0; i < coralDots.length; i++) {
+    const [currColor, dts] = coralDots[i]
     coralLayer.fill(currColor)
-    let xAddRel = xAddAbs * (i/coralDots.length) - 0.5
-    let yAddRel = yAddAbs * (i/coralDots.length) - 0.5
-    dts.forEach(([x,y,r]) => coralLayer.ellipse(x + xAddRel, y + yAddRel, r))
-  })
+    let xAddRel = xAddAbs * (i / coralDots.length) - 0.5
+    let yAddRel = yAddAbs * (i / coralDots.length) - 0.5
+    for(let j = 0; j < dts.length; j++) {
+      const [x, y, r] = dts[j]
+      coralLayer.ellipse(x + xAddRel, y + yAddRel, r)
+    }
+  }
 }
-
 
 function drawCoral() {
   coralLayer.clear()
@@ -86,7 +93,6 @@ function clipMask() {
   ctx.clip()
 }
 
-
 /**
  *  The coral grid divides coral into `divisions` horizontal and vertical sections
  *  totaling `deivions`^2 areas. Each section has the following fields
@@ -100,7 +106,7 @@ function clipMask() {
  * }
  *  */
 const divisions = 5
-let coralBounds = {maxY:0, maxX:0, minY:0, minX:0}
+let coralBounds = { maxY: 0, maxX: 0, minY: 0, minX: 0 }
 function genCoralGrid() {
   print('generating coral grid')
   coralGrid = []
@@ -195,6 +201,6 @@ function displayBleach() {
 function bleachCoral(temp) {
   const divisions = coralGrid.length
   coralGrid.forEach((section, i) => {
-    section.b = max(0, map(temp, 1 + i/divisions, MAX_TEMP, 0, 1))
+    section.b = max(0, map(temp, 1 + i / divisions, MAX_TEMP, 0, 1))
   })
 }

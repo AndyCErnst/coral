@@ -104,7 +104,9 @@ function drawLight(pos) {
   light.render(pos)
 }
 
+// const ms = [5,6,6,6,6,6,6,6,6]
 function draw() {
+  // let start = millis()
   xoff += 0.01
 
   background(30, 13, 206);
@@ -123,7 +125,13 @@ function draw() {
   drawLines()
   drawBubble()
   sunlight()
-
   displayTemperature()
+  displayMessages()
   debugInfo()
+
+  // ms.shift()
+  // ms.push(millis() - start)
+  // if(everyNthFrame(10)){
+  //   print('time ', ms.reduce((m,acc)=>m+acc)/ms.length)
+  // }
 }

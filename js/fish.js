@@ -32,13 +32,12 @@ class Fish {
   tail() {
     noStroke()
     push()
-    const alpha = 255
     angleMode(DEGREES)
     translate(this.pos.x, this.pos.y)
     rotate(this.vel.heading() + 90)
     angleMode(RADIANS)
     for (let i = 0; i < 17; i++) {
-      fill(150 - i * 7, 150 - i * 7, 200, alpha)
+      fill(150 - i * 7, 150 - i * 7, 200)
 
       ellipse(
         sin(this.xoff) * (i * this.varience),
@@ -68,19 +67,18 @@ class Fish {
 
   eyes() {
     push()
-    const alpha = 255
     angleMode(DEGREES)
     translate(this.pos.x, this.pos.y)
     rotate(this.vel.heading() + 90)
-    fill(100, 0, 200, alpha)
+    fill(100, 0, 200)
     ellipse(this.h * 0.15, this.h * -0.25, this.w * 0.375, this.h * 0.175)
     ellipse(this.h * -0.15, this.h * -0.25, this.w * 0.375, this.h * 0.175)
-    fill(0, 100, 200, alpha)
-    stroke(0, 100, 200, alpha)
+    fill(0, 100, 200)
+    stroke(0, 100, 200)
     ellipse(this.h * 0.175, this.h * -0.25, this.w * 0.1875, this.h * 0.1)
     ellipse(this.h * -0.175, this.h * -0.25, this.w * 0.1875, this.h * 0.1)
     noStroke()
-    fill(250, alpha)
+    fill(250)
     ellipse(this.h * 0.175, this.h * -0.275, this.w * 0.0625, this.h * 0.025)
     ellipse(this.h * -0.175, this.h * -0.275, this.w * 0.0625, this.h * 0.025)
     angleMode(RADIANS)
@@ -107,7 +105,7 @@ class Fish {
     this.update(x, y, mousePos)
     this.checkEdges()
     this.tail()
-    this.eyes()
+    // this.eyes()
   }
 }
 
