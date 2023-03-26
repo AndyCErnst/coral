@@ -13,9 +13,12 @@ class Fish {
 
   update(x, y, mousePos) {
     let dir = createVector()
-    let dis = dist(this.pos.x, this.pos.y, mousePos.x, mousePos.y)
+    // Calculating vector distance is expensive.
+    // Since we don't need precise distance, do a very lazy measure.
+    // This makes fish bounding boxes square, but it's hardly noticible
+    const dis = Math.abs(this.pos.x - mousePos.x) + Math.abs(this.pos.y - mousePos.y)
     this.pos.add(this.vel)
-    if (dis < 100) {
+    if (dis < 120) {
       dir = p5.Vector.sub(this.pos, mousePos)
       // speed up
       this.vel.add(dir)

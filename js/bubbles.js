@@ -1,11 +1,10 @@
 const bubbleRate = 200;
-let bubbles = []; // array to hold bubble objects
+let bubbles = []
 
 // consider using sin wave https://editor.p5js.org/TimSherbert/sketches/L44ilSKSn
 function drawBubble() {
   // create new bubble every `bubbleRate` frames
-
-  if(frameCount % bubbleRate === 0) {
+  if(everyNthFrame(bubbleRate)) {
     const numBub = Math.floor(random(1,4))
     const randY = random(0, width)
     for(let i = 0; i < numBub; i++) {
@@ -17,12 +16,11 @@ function drawBubble() {
 
   // Draw bubbles
   for (let i = 0; i < bubbles.length; i++) {
-    bubbles[i].update();
-    bubbles[i].display();
+    bubbles[i].update()
+    bubbles[i].display()
   }
 }
 
-// Bubble object definition
 class Bubble {
   constructor(x, y) {
     this.pos = createVector(x, y); // position of the bubble

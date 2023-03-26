@@ -109,7 +109,7 @@ function draw() {
   // let start = millis()
   xoff += 0.01
 
-  background(30, 13, 206);
+  background(30, 13, 206)
   image(sandLayer, 0,480)
   
   const mousePos = getMousePos()
