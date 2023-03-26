@@ -14,6 +14,7 @@ function handleTemperature(pos) {
 
 let xMovement = []
 let yMovement = []
+const pastStates = Array(10).fill(HEALTHY)
 function markTemperature(pos) {
   if (xMovement.length >= 5) {
     xMovement.shift()
@@ -29,8 +30,18 @@ function markTemperature(pos) {
   if (totalMovement > 150) {
     const tempIncrease = (totalMovement / 300) * TEMP_INCREASE_RATE
     temp = min(MAX_TEMP, temp + tempIncrease)
+    if (temp > 1.2) {
+      addMessage(WARM)
+    } else if (temp > 0.5) {
+      addMessage(WARMING)
+    }
   } else {
     temp = max(0, temp - TEMP_REDUCE_RATE)
+    if (temp < 0.5) {
+      addMessage(HEALTHY)
+    } else if (temp < 2) {
+      addMessage(HEALING)
+    }
   }
 }
 
@@ -45,9 +56,9 @@ function displayTemperature() {
 
 function thermometer() {
   let thermoLen = 600
-  const x = width/2 - thermoLen/2
+  const x = width / 2 - thermoLen / 2
   const y = 40
-  
+
   noFill()
   stroke(255)
   rect(x, y, thermoLen, 12, 20)

@@ -1,22 +1,28 @@
+const HEALTHY = 'healthy'
+const WARMING = 'warming'
+const WARM = 'warm'
+const HEALING = 'healing'
+const DYING = 'dying'
+const DEAD = 'dead'
 const messages = {
-  healthy: [
+  [HEALTHY]: [
     'This coral reef is healthy',
     'Move your hands to interact with it',
   ],
-  warming: ['The water is warming up', 'This may get dangerous'],
-  warm: [
-    '1.1°C above normal temprature can bleach coral',
-    'Symbiotic plants inside coral are leaving',
-  ],
-  healing: [
-    'Temperatures have dropped, the coral is returning',
+  [HEALING]: [
+    'Temperatures are dropping, the coral is returning',
     'It takes around 10 years to repopulate',
   ],
-  dying: [
+  [WARMING]: ['The water is warming up', 'This may get dangerous'],
+  [WARM]: [
+    'Even 1.1°C above normal temperature can bleach coral',
+    'Symbiotic plants inside coral are leaving',
+  ],
+  [DYING]: [
     'Without food from symbiotic plants, coral dies',
     'It leaves a "skeleton" behind',
   ],
-  dead: ['The coral skeleton is left', 'Algae slowly takes over'],
+  [DEAD]: ['Only a bare skeleton is left', 'Algae slowly takes over'],
 }
 
 const MESSAGE_DISPLAY_TIME = 180 // 3 seconds at least
@@ -95,7 +101,7 @@ function fadeInMessage(message, pos) {
     message.state += 1
     message.opacity = 0
   } else {
-    message.opacity += 6
+    message.opacity += 4
   }
 }
 
@@ -107,6 +113,6 @@ function fadeOutMessage(message) {
     // destroy self
     queue.shift()
   } else {
-    message.opacity -= 6
+    message.opacity -= 4
   }
 }
