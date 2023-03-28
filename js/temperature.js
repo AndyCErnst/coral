@@ -14,7 +14,7 @@ function handleTemperature(pos) {
 
 let xMovement = []
 let yMovement = []
-const pastTemps = Array(20).fill(0)
+const pastTemps = Array(10).fill(0)
 function markTemperature(pos) {
   if (xMovement.length >= 5) {
     xMovement.shift()
@@ -69,7 +69,7 @@ function markTemperature(pos) {
   } else if (temp < 0.5) {
     // COOL
     addMessage(HEALTHY)
-  } else if (temp < 2) {
+  } else if (temp < 2 && Math.min(pastTemps) === temp) {
     // COOLING
     addMessage(HEALING)
   }

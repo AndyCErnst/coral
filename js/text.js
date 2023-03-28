@@ -94,7 +94,7 @@ function displayPersistentMessage(message, pos) {
 }
 
 function fadeInMessage(message, pos) {
-  fill(255, 255, 255, message.opacity)
+    fill(255, 255, 255, message.opacity)
   text(message.text[pos], 480, 90 + 40 * pos)
 
   if (message.opacity >= 255) {

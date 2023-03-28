@@ -95,6 +95,7 @@ function setup() {
   light = new Light()
   initFish(NUM_FISH)
   initBackground()
+  surfaceSetup()
   createButtons()
   coralLayer = createGraphics(960, 540)
   drawCoral()
@@ -114,6 +115,7 @@ function draw() {
   xoff += 0.01
 
   background(30, 13, 206)
+  drawSurface()
   displayBackground()
   
   const mousePos = getMousePos()
@@ -128,7 +130,7 @@ function draw() {
   drawLight(mousePos)
   drawLines()
   drawBubble()
-  sunlight()
+  // sunlight()
   displayTemperature()
   displayMessages()
   debugInfo()
