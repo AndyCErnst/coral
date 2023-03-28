@@ -16,13 +16,14 @@ class Fish {
     // Calculating vector distance is expensive.
     // Since we don't need precise distance, do a very lazy measure.
     // This makes fish bounding boxes square, but it's hardly noticible
-    const dis = Math.abs(this.pos.x - mousePos.x) + Math.abs(this.pos.y - mousePos.y)
+    const dis =
+      Math.abs(this.pos.x - mousePos.x) + Math.abs(this.pos.y - mousePos.y)
     this.pos.add(this.vel)
     if (dis < 120) {
       dir = p5.Vector.sub(this.pos, mousePos)
       // speed up
       this.vel.add(dir)
-	  this.currMax = 4.5
+      this.currMax = 4.5
     } else {
       this.currMax =
         this.currMax > this.maxspeed ? this.currMax * 0.98 : this.maxspeed
@@ -43,10 +44,10 @@ class Fish {
       fill(150 - i * 7, 150 - i * 7, 200)
 
       ellipse(
-        sin(this.xoff) * (i * this.varience),
+        Math.sin(this.xoff) * (i * this.varience),
         i * (4 * this.varience),
-        this.w - sin(i / 6) * (15 * this.varience),
-        this.h - sin(i / 6) * (20 * this.varience)
+        this.w - Math.sin(i / 6) * (15 * this.varience),
+        this.h - Math.sin(i / 6) * (20 * this.varience)
       )
 
       push()
@@ -86,7 +87,6 @@ class Fish {
     ellipse(this.h * -0.175, this.h * -0.275, this.w * 0.0625, this.h * 0.025)
     angleMode(RADIANS)
     pop()
-    
   }
 
   checkEdges() {
@@ -112,18 +112,18 @@ class Fish {
   }
 }
 
-let fish = [];
+let fish = []
 function initFish(num) {
   for (var i = 0; i < num; i++) {
-    fish.push(new Fish(random(width), random(height), random(0.3, 0.5)));
+    fish.push(new Fish(random(width), random(height), random(0.3, 0.5)))
   }
 }
 
 function drawFish(pos) {
   for (let i = 0; i < fish.length; i++) {
-    let x = map(noise(i + frameCount), 0, 1, -0.1, 0.1);
-    let y = map(noise(i + xoff + 1), 0, 1, -0.1, 0.1);
+    let x = map(noise(i + frameCount), 0, 1, -0.1, 0.1)
+    let y = map(noise(i + xoff + 1), 0, 1, -0.1, 0.1)
 
-    fish[i].render(x, y, pos);
+    fish[i].render(x, y, pos)
   }
 }

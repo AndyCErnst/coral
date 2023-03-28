@@ -25,6 +25,9 @@ let coralGrid = []
 
 const coralDots = []
 function coralPattern(mousePos) {
+  if(deathTimer > 0) {
+    return
+  }
   if (coralDots.length > 100) {
     coralDots.shift()
   }
@@ -69,7 +72,7 @@ function drawCoralPattern(coralDots, mousePos) {
     let yAddRel = yAddAbs * (i / coralDots.length) - 0.5
     for(let j = 0; j < dts.length; j++) {
       const [x, y, r] = dts[j]
-      coralLayer.ellipse(x + xAddRel, y + yAddRel, r)
+      coralLayer.circle(x + xAddRel, y + yAddRel, r)
     }
   }
 }
@@ -108,7 +111,6 @@ function clipMask() {
 const divisions = 5
 let coralBounds = { maxY: 0, maxX: 0, minY: 0, minX: 0 }
 function genCoralGrid() {
-  print('generating coral grid')
   coralGrid = []
   // Find x,y,w,h of coral drawing
   coralBounds = coralPos.reduce(
@@ -194,13 +196,13 @@ function displayBleach() {
       color(`rgba(255, 255, 255, ${endOpac * 0.8})`),
       color(255, 255, 255, 0)
     )
-    coralLayer.ellipse(x, y, bleachSize)
+    coralLayer.circle(x, y, bleachSize)
   })
 }
 
 function bleachCoral(temp) {
   const divisions = coralGrid.length
   coralGrid.forEach((section, i) => {
-    section.b = max(0, map(temp, 1 + i / divisions, MAX_TEMP, 0, 1))
+    section.b = Math.max(0, map(temp, 1 + i / divisions, MAX_TEMP, 0, 1), deathTimer/100)
   })
 }

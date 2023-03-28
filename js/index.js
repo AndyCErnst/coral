@@ -82,6 +82,7 @@ function getMousePos() {
 let img
 function setup() {
   // pixelDensity(1) // uncomment if slow, lowers effective resolution
+  // canvas.getContext('webgl') // uncomment if slow, not sure what the side effects will be
   mainCanvas = createCanvas(960, 540);
   noStroke()
   noCursor();

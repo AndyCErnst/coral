@@ -1,9 +1,9 @@
-const HEALTHY = 'healthy'
-const WARMING = 'warming'
-const WARM = 'warm'
-const HEALING = 'healing'
-const DYING = 'dying'
-const DEAD = 'dead'
+const HEALTHY = 0
+const WARMING = 1
+const WARM = 2
+const HEALING = 3
+const DYING = 4
+const DEAD = 5
 const messages = {
   [HEALTHY]: [
     'This coral reef is healthy',
@@ -16,7 +16,7 @@ const messages = {
   [WARMING]: ['The water is warming up', 'This may get dangerous'],
   [WARM]: [
     'Even 1.1°C above normal temperature can bleach coral',
-    'Symbiotic plants inside coral are leaving',
+    'The symbiotic plants inside coral are leaving',
   ],
   [DYING]: [
     'Without food from symbiotic plants, coral dies',
@@ -24,8 +24,7 @@ const messages = {
   ],
   [DEAD]: ['Only a bare skeleton is left', 'Algae slowly takes over'],
 }
-
-const MESSAGE_DISPLAY_TIME = 180 // 3 seconds at least
+let deathTimer = 0
 
 const queue = []
 

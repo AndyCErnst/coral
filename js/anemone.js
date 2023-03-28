@@ -33,9 +33,8 @@ class Branch {
 
   branch(len) {
     len *= 0.75;
-    let t = map(len, 0.1, 7, 1, 10);
-    this.theta = this.angle + sin(len + this.num) * 5;
-    strokeWeight(t);
+    this.theta = this.angle + Math.sin(len + this.num) * 5;
+    strokeWeight(map(len, 0.1, 7, 1, 10))
     line(0, 0, 0, -len*10);
     // ellipse(0, 0, t, t);
     translate(0, -len*10);
@@ -46,8 +45,8 @@ class Branch {
       pop();
     } else {
       for (let i = 0; i < 360; i += 30) {
-        let x = sin(radians(i)) * 10;
-        let y = cos(radians(i)) * 10;
+        let x = Math.sin(radians(i)) * 10;
+        let y = Math.cos(radians(i)) * 10;
         line(0, 0, x, y);
       }
     }

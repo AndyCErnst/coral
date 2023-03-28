@@ -33,7 +33,7 @@ class Bubble {
   
   // Update the bubble's position
   update() {
-    if(frameCount % this.rand === 0){
+    if(everyNthFrame(this.rand)){
       this.vel = createVector(-this.vel.x, this.vel.y)
     }
     this.pos.add(this.vel);

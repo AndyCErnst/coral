@@ -14,7 +14,7 @@ function handleTemperature(pos) {
 
 let xMovement = []
 let yMovement = []
-const pastStates = Array(10).fill(HEALTHY)
+const pastTemps = Array(20).fill(0)
 function markTemperature(pos) {
   if (xMovement.length >= 5) {
     xMovement.shift()
@@ -27,21 +27,47 @@ function markTemperature(pos) {
     max(xMovement) - min(xMovement),
     max(yMovement) - min(yMovement)
   )
+
   if (totalMovement > 150) {
     const tempIncrease = (totalMovement / 300) * TEMP_INCREASE_RATE
     temp = min(MAX_TEMP, temp + tempIncrease)
+  } else {
+    temp = max(0, temp - TEMP_REDUCE_RATE)
+  }
+  pastTemps.shift()
+  pastTemps.push(temp)
+  const avgTemp = pastTemps.reduce((t, a) => t + a) / pastTemps.length
+
+  if(temp === MAX_TEMP && deathTimer === 0) {
+    // DEAD
+    addMessage(DYING)
+    deathTimer++
+    return
+  }
+
+  if(deathTimer) {
+    deathTimer++
+    // ALGAE moves in
+    if(deathTimer > 50) {
+      addMessage(DEAD)
+    }
+    return
+  }
+
+  
+  if (temp > avgTemp) {
+    // WARMING
     if (temp > 1.2) {
       addMessage(WARM)
     } else if (temp > 0.5) {
       addMessage(WARMING)
     }
-  } else {
-    temp = max(0, temp - TEMP_REDUCE_RATE)
-    if (temp < 0.5) {
-      addMessage(HEALTHY)
-    } else if (temp < 2) {
-      addMessage(HEALING)
-    }
+  } else if (temp < 0.5) {
+    // COOL
+    addMessage(HEALTHY)
+  } else if (temp < 2) {
+    // COOLING
+    addMessage(HEALING)
   }
 }
 
