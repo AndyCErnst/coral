@@ -4,6 +4,7 @@ const WARM = 2
 const HEALING = 3
 const DYING = 4
 const DEAD = 5
+const RESTART = 6
 const messages = {
   [HEALTHY]: [
     'This coral reef is healthy',
@@ -23,6 +24,7 @@ const messages = {
     'It leaves a "skeleton" behind',
   ],
   [DEAD]: ['Only a bare skeleton is left', 'Algae slowly takes over'],
+  [RESTART]: ['There\'s almost no recovery from this', 'Let\'s start over again'],
 }
 let deathTimer = 0
 

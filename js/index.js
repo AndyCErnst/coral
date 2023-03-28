@@ -9,7 +9,6 @@ let handX2 = -100;
 let handY2 = -100;
 let light;
 let bleachMask
-let sandLayer
 const NUM_FISH = 11;
 
 let rate = 0
@@ -39,7 +38,13 @@ Leap.loop(frame => {
       handY2 = hand2.stabilizedPalmPosition[1]
     }
   }
-});
+})
+
+function restartEverything() {
+  temp = 0
+  deathTimer = 0
+
+}
 
 function createButtons() {
   // create buttons
@@ -80,6 +85,7 @@ function getMousePos() {
   return createVector(xpos, ypos)
 }
 let img
+
 function setup() {
   // pixelDensity(1) // uncomment if slow, lowers effective resolution
   // canvas.getContext('webgl') // uncomment if slow, not sure what the side effects will be
@@ -88,16 +94,13 @@ function setup() {
   noCursor();
   light = new Light()
   initFish(NUM_FISH)
+  initBackground()
   createButtons()
   coralLayer = createGraphics(960, 540)
   drawCoral()
   clipMask()
   genCoralGrid()
-  sandLayer = createGraphics(960, 150)
-  drawSand()
   createAnemones()
-  // img = createImg('anenome-test.gif')
-    // img.position(50, 350) // put this in draw
 }
 
 // light "source" hand indicator
@@ -111,7 +114,7 @@ function draw() {
   xoff += 0.01
 
   background(30, 13, 206)
-  image(sandLayer, 0,480)
+  displayBackground()
   
   const mousePos = getMousePos()
   drawAnemones()

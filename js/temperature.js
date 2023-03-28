@@ -50,6 +50,10 @@ function markTemperature(pos) {
     // ALGAE moves in
     if(deathTimer > 50) {
       addMessage(DEAD)
+    } else if (deathTimer > 150) {
+      addMessage(RESTART)
+    } else if (deathTimer > 250) {
+      restartEverything()
     }
     return
   }
