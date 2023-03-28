@@ -1,8 +1,11 @@
-let branches = [];
+const positions = [[130, 440],[890, 400], [231, 503]]
+let anemones = [[], [], []];
 
 function createAnemones() {
-  for (let i = 0; i < 25; i++) {
-    branches.push(new Branch());
+  for(let a = 0; a < anemones.length; a++) {
+    for (let i = 0; i < 25; i++) {
+      anemones[a].push(new Branch())
+    }
   }
 }
 
@@ -10,15 +13,16 @@ function createAnemones() {
 // The original one is prettier, but much less performant
 function drawAnemones() {
   stroke(0, 150, 255, 65)
-  // fill('#9b4dca');
   angleMode(RADIANS)
-  for (let i = 0; i < branches.length; i++) {
-    push();
-    let b = branches[i];
-    translate(130, height-50);
-    rotate(radians(b.startAngle));
-    b.branch(b.segments);
-    pop();
+  for(let a = 0; a < anemones.length; a++) {
+    for (let i = 0; i < anemones[a].length; i++) {
+      push();
+      let b = anemones[a][i];
+      translate(positions[a][0], positions[a][1]);
+      rotate(radians(b.startAngle));
+      b.branch(b.segments);
+      pop();
+    }
   }
 }
 

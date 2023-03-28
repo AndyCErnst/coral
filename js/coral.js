@@ -80,7 +80,8 @@ function drawCoralPattern(coralDots, mousePos) {
 
 function drawCoral() {
   coralLayer.clear()
-  coralLayer.drawingContext.fillStyle = 'rgb(245,100,90)'
+  const colorAdd = (temp < 1 ? 1 : temp) * 25
+  coralLayer.drawingContext.fillStyle = `rgb(245,${75+colorAdd},${65+colorAdd})`
   coralLayer.beginShape()
   // coralLayer.stroke(245,245,245) // for debugging
   coralLayer.noStroke()
@@ -204,7 +205,7 @@ function displayBleach() {
 function bleachCoral(temp) {
   const divisions = coralGrid.length
   coralGrid.forEach((section, i) => {
-    section.b = Math.max(0, map(temp, 1 + i / divisions, MAX_TEMP, 0, 1), deathTimer/100)
+    section.b = Math.max(0, map(temp, 1 + i / divisions, MAX_TEMP, 0, 1), deathTimer/50)
   })
 }
 

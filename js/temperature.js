@@ -13,14 +13,12 @@ function handleTemperature(pos) {
   displayTemperature()
 }
 
-let xMovement = []
-let yMovement = []
+let xMovement = [0,0,0,0,0]
+let yMovement = [0,0,0,0,0]
 const pastTemps = Array(10).fill(0)
 function markTemperature(pos) {
-  if (xMovement.length >= 5) {
-    xMovement.shift()
-    yMovement.shift()
-  }
+  xMovement.shift()
+  yMovement.shift()
   xMovement.push(pos.x)
   yMovement.push(pos.y)
 
@@ -49,9 +47,9 @@ function markTemperature(pos) {
   if(deathTimer) {
     deathTimer++
     // ALGAE moves in
-    if (deathTimer > 250) {
+    if (deathTimer > 300) {
       restartEverything()
-    } else if (deathTimer > 150) {
+    } else if (deathTimer > 200) {
       addMessage(RESTART)
     } else if(deathTimer > 50) {
       addMessage(DEAD)
@@ -80,8 +78,11 @@ function displayTemperature() {
   textSize(24)
   textAlign(LEFT)
   fill(255, 255, 255)
+  if(temp > 2.5) {
+    textStyle(BOLD)
+  }
   text(`+${temp.toFixed(1)}°C`, 790, 54)
-
+  textStyle(NORMAL)
   thermometer()
 }
 

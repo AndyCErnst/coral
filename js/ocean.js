@@ -3,8 +3,8 @@ function sunlight() {
   blendMode(ADD)
   groupedNoisyGradient(
     mainCanvas,
-    width,
-    0,
+    width-100,
+    100,
     0,
     height / 2,
     color(252, 252, 63, 0),

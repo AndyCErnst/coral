@@ -102,7 +102,7 @@ function fadeInMessage(message, pos) {
     message.state += 1
     message.opacity = 0
   } else {
-    message.opacity += 4
+    message.opacity += 3
   }
 }
 

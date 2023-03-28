@@ -140,7 +140,7 @@ function draw() {
   drawLight(mousePos)
   drawLines()
   drawBubble()
-  // sunlight()
+  sunlight()
   displayMessages()
   debugInfo()
 
@@ -150,4 +150,8 @@ function draw() {
   //   print('time ', ms.reduce((m,acc)=>m+acc)/ms.length)
   // }
 
+}
+
+function mouseClicked() {
+  console.log(mouseX, '   ', mouseY)
 }
