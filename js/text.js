@@ -23,8 +23,8 @@ const messages = {
     'Without food from symbiotic plants, coral dies',
     'It leaves a "skeleton" behind',
   ],
-  [DEAD]: ['Only a bare skeleton is left', 'Algae slowly takes over'],
-  [RESTART]: ['There\'s almost no recovery from this', 'Let\'s start over again'],
+  [DEAD]: ['When coral dies, fish leave as well', 'Algae slowly takes over the reef'],
+  [RESTART]: ["There's almost no recovery from this", "Let's start over again"],
 }
 let deathTimer = 0
 
@@ -94,7 +94,7 @@ function displayPersistentMessage(message, pos) {
 }
 
 function fadeInMessage(message, pos) {
-    fill(255, 255, 255, message.opacity)
+  fill(255, 255, 255, message.opacity)
   text(message.text[pos], 480, 90 + 40 * pos)
 
   if (message.opacity >= 255) {

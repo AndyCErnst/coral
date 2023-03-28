@@ -84,18 +84,26 @@ function getMousePos() {
   let ypos = useMouse ? mouseY : map(handY1, 50, 550, height, 0)
   return createVector(xpos, ypos)
 }
-let img
+let algae
+let mask
+
+
+function preload() {
+  algae = loadImage('images/algae.png')
+  mask = loadImage('images/grad3.png')
+  initBackground()
+}
 
 function setup() {
   // pixelDensity(1) // uncomment if slow, lowers effective resolution
   // canvas.getContext('webgl') // uncomment if slow, not sure what the side effects will be
   mainCanvas = createCanvas(960, 540);
+  algae.mask(mask)
   noStroke()
   noCursor();
   light = new Light()
   initFish(NUM_FISH)
-  initBackground()
-  surfaceSetup()
+  // surfaceSetup()
   createButtons()
   coralLayer = createGraphics(960, 540)
   drawCoral()
@@ -115,23 +123,24 @@ function draw() {
   xoff += 0.01
 
   background(30, 13, 206)
-  drawSurface()
+  // drawSurface()
   displayBackground()
   
   const mousePos = getMousePos()
+
   drawAnemones()
   handleTemperature(mousePos)
   drawCoral()
   coralPattern(mousePos)
   displayBleach()
+  drawAlgae()
   image(coralLayer, 0, 0)
-  
+
   drawFish(mousePos)
   drawLight(mousePos)
   drawLines()
   drawBubble()
   // sunlight()
-  displayTemperature()
   displayMessages()
   debugInfo()
 
@@ -140,4 +149,5 @@ function draw() {
   // if(everyNthFrame(10)){
   //   print('time ', ms.reduce((m,acc)=>m+acc)/ms.length)
   // }
+
 }

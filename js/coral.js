@@ -2,7 +2,7 @@ let coralPos = [
   [361, 535],
   [325, 480],
   [367, 304],
-  [417, 255],
+  [417, 245],
   [459, 305],
   [503, 309],
   [537, 266],
@@ -77,11 +77,12 @@ function drawCoralPattern(coralDots, mousePos) {
   }
 }
 
+
 function drawCoral() {
   coralLayer.clear()
-  coralLayer.drawingContext.fillStyle = 'rgb(255,100,90)'
+  coralLayer.drawingContext.fillStyle = 'rgb(245,100,90)'
   coralLayer.beginShape()
-  // coralLayer.stroke(255,255,255) // for debugging
+  // coralLayer.stroke(245,245,245) // for debugging
   coralLayer.noStroke()
   for (var i = 0; i < coralPos.length; i++) {
     const [x, y] = coralPos[i]
@@ -192,9 +193,9 @@ function displayBleach() {
       x,
       y,
       bleach / 2,
-      color(`rgba(255, 255, 255, ${endOpac})`),
-      color(`rgba(255, 255, 255, ${endOpac * 0.8})`),
-      color(255, 255, 255, 0)
+      color(`rgba(245, 245, 245, ${endOpac})`),
+      color(`rgba(245, 245, 245, ${endOpac * 0.8})`),
+      color(`rgba(225, 225, 225, 0)`)
     )
     coralLayer.circle(x, y, bleachSize)
   })
@@ -205,4 +206,17 @@ function bleachCoral(temp) {
   coralGrid.forEach((section, i) => {
     section.b = Math.max(0, map(temp, 1 + i / divisions, MAX_TEMP, 0, 1), deathTimer/100)
   })
+}
+
+function drawAlgae() {
+  const { maxY, maxX, minY, minX } = coralBounds
+  coralLayer.push()
+  coralLayer.imageMode(CENTER)
+  coralLayer.angleMode(DEGREES)
+  const w = maxX - minX
+  const h = maxY - minY
+  coralLayer.translate(minX + w/2, minY + h/2)
+  coralLayer.rotate(-35)
+  coralLayer.image(algae, 0, Math.max(550 - 2 * deathTimer, 0), w+100, w)
+  coralLayer.pop()
 }

@@ -3,6 +3,7 @@ let totalBleaching = 0
 const TEMP_INCREASE_RATE = 0.02
 const TEMP_REDUCE_RATE = 0.005
 const MAX_TEMP = 3
+let movement = 0
 
 function handleTemperature(pos) {
   if (everyNthFrame(7)) {
@@ -23,13 +24,13 @@ function markTemperature(pos) {
   xMovement.push(pos.x)
   yMovement.push(pos.y)
 
-  const totalMovement = mag(
+  movement = mag(
     max(xMovement) - min(xMovement),
     max(yMovement) - min(yMovement)
   )
 
-  if (totalMovement > 150) {
-    const tempIncrease = (totalMovement / 300) * TEMP_INCREASE_RATE
+  if (movement > 150) {
+    const tempIncrease = (movement / 300) * TEMP_INCREASE_RATE
     temp = min(MAX_TEMP, temp + tempIncrease)
   } else {
     temp = max(0, temp - TEMP_REDUCE_RATE)
@@ -48,12 +49,12 @@ function markTemperature(pos) {
   if(deathTimer) {
     deathTimer++
     // ALGAE moves in
-    if(deathTimer > 50) {
-      addMessage(DEAD)
+    if (deathTimer > 250) {
+      restartEverything()
     } else if (deathTimer > 150) {
       addMessage(RESTART)
-    } else if (deathTimer > 250) {
-      restartEverything()
+    } else if(deathTimer > 50) {
+      addMessage(DEAD)
     }
     return
   }

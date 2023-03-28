@@ -15,17 +15,18 @@ class Light {
     push();
     blendMode(ADD);
     translate(x, y);
+    const cappedMov = constrain(movement-100, 0, 100)
     // this create the circles of the light
     for (let i = 0; i < 25; i += 8) {
       strokeWeight(6);
-      fill(233 - i, 255, 255, 83 - i);
+      fill(255, 255 - cappedMov, 255 - cappedMov, 83 - i);
       ellipse(0, 0, i);
     }
 
     pop();
     radialGradient(mainCanvas, x, y, 50, 
-      color(255, 255, 255, 150), 
-      color(255, 255, 255, 0))
+      color(255, 255-cappedMov, 255-cappedMov, 100), 
+      color(255, 255-cappedMov, 255-cappedMov, 0))
     ellipse(x, y, 300)
   }
 
