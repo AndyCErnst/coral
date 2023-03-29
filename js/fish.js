@@ -40,7 +40,7 @@ class Fish {
     translate(this.pos.x, this.pos.y)
     rotate(this.vel.heading() + 90)
     angleMode(RADIANS)
-    for (let i = 0; i < 17; i+=3) {
+    for (let i = 0; i < 17; i+=4) {
       fill(150 - i * 7, 150 - i * 7, 200)
 
       ellipse(
