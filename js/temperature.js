@@ -91,11 +91,7 @@ function displayTemperature() {
   push()
   setShadow()
   textAlign(LEFT)
-  if (temp > 2) {
-    fill(227, 78, 36)
-  } else {
-    fill(255, 255, 255)
-  }
+  fill(255, 255, 255)
   text(`+${temp.toFixed(1)}°C`, 790, 55)
   pop()
   thermometer()
@@ -108,10 +104,11 @@ function thermometer() {
 
   fill(150)
   stroke(255)
-  rect(x, y, thermoLen, 12, 20)
+  rect(x, y, thermoLen, 16, 20)
 
   noStroke()
-  fill(255)
-  let redLen = map(temp, 0, MAX_TEMP, 6, thermoLen - 6)
-  rect(3 + x, y + 3, redLen, 6, 20)
+  //255, 10, 27
+  fill(240, map(temp, 0, MAX_TEMP, 240, 10), map(temp, 0, MAX_TEMP, 240, 27))
+  let redLen = map(temp, 0, MAX_TEMP, 10, thermoLen - 6)
+  rect(3 + x, y + 3, redLen, 10, 20)
 }
