@@ -13,8 +13,8 @@ function handleTemperature(pos) {
   displayTemperature()
 }
 
-let xMovement = [0,0,0,0,0]
-let yMovement = [0,0,0,0,0]
+let xMovement = [0, 0, 0, 0, 0]
+let yMovement = [0, 0, 0, 0, 0]
 const pastTemps = Array(10).fill(0)
 function markTemperature(pos) {
   xMovement.shift()
@@ -39,27 +39,33 @@ function markTemperature(pos) {
   pastTemps.push(temp)
   const avgTemp = pastTemps.reduce((t, a) => t + a) / pastTemps.length
 
-  if(temp === MAX_TEMP && deathTimer === 0) {
+  if (temp === MAX_TEMP && deathTimer === 0) {
     // DEAD
     addMessage(DYING)
     deathTimer++
     return
   }
 
-  if(deathTimer) {
+  if (deathTimer) {
+    zRunning = false
     deathTimer++
     // ALGAE moves in
     if (deathTimer > 300) {
       restartEverything()
     } else if (deathTimer > 200) {
       addMessage(RESTART)
-    } else if(deathTimer > 50) {
+    } else if (deathTimer > 50) {
       addMessage(DEAD)
     }
     return
   }
 
-  
+  if (temp > 2 || temp < 1.1) {
+    zRunning = false
+  } else {
+    zRunning = true
+  }
+
   if (temp > avgTemp) {
     // WARMING
     if (temp > 1.2) {
@@ -77,14 +83,16 @@ function markTemperature(pos) {
 }
 
 function displayTemperature() {
-  textSize(24)
+  push()
+  setShadow()
   textAlign(LEFT)
   fill(255, 255, 255)
-  if(temp > 2.5) {
+  if (temp > 2.5) {
     textStyle(BOLD)
   }
-  text(`+${temp.toFixed(1)}°C`, 790, 54)
+  text(`+${temp.toFixed(1)}°C`, 790, 55)
   textStyle(NORMAL)
+  pop()
   thermometer()
 }
 
@@ -93,7 +101,7 @@ function thermometer() {
   const x = width / 2 - thermoLen / 2
   const y = 40
 
-  noFill()
+  fill(150)
   stroke(255)
   rect(x, y, thermoLen, 12, 20)
 

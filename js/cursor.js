@@ -69,11 +69,11 @@ class Particle_Smoke {
     this.xv = (Math.random()*2-1) * 0.8
     this.yv = (Math.random()*2-1) * 0.8
       // style
-    this.r = 200
-    this.g = 100
+    this.r = 240
+    this.g = 150
     this.b = 100
     this.opacity = 180
-    this.radius = 9
+    this.radius = Math.random() * 10 + 0.6
     // this.gravity = 0.01
   }
   display() {

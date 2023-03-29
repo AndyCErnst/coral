@@ -61,3 +61,16 @@ function radialGradient(canvas, sX, sY, radius, ...colors){
     colors.forEach((color, i) => gradient.addColorStop(increment * i, color))
     canvas.drawingContext.fillStyle = gradient;
 }
+
+function distSquared(x1, y1, x2, y2) {
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    return dx * dx + dy * dy;
+}
+
+
+function setShadow(opacity = 1) {
+    drawingContext.shadowBlur = 4
+    drawingContext.shadowColor = `rgba(0,0,0,${opacity**2})`
+  }
+  

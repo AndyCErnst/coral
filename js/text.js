@@ -11,19 +11,22 @@ const messages = {
     'Move your hands to interact with it',
   ],
   [HEALING]: [
-    'Temperatures are dropping, the coral is returning',
-    'It takes around 10 years to repopulate',
+    'Temperatures are dropping, the coral is recovering',
+    'It can take 10 years to regrow and repopulate',
   ],
-  [WARMING]: ['The water is warming up', 'This may get dangerous'],
+  [WARMING]: ['The water is warming up', 'Unusually warm currents can damage coral'],
   [WARM]: [
-    'Even 1.1°C above normal temperature can bleach coral',
-    'The symbiotic plants inside coral are leaving',
+    'Even 1.1°C above normal harms symbiotic algae inside coral',
+    'When these algae leave, the coral bleachers',
   ],
   [DYING]: [
     'Without food from symbiotic plants, coral dies',
-    'It leaves a "skeleton" behind',
+    'It leaves a shell-like skeleton behind',
   ],
-  [DEAD]: ['When coral dies, fish leave as well', 'Algae slowly takes over the reef'],
+  [DEAD]: [
+    'Without coral, fish leave as well',
+    'Turfing algae slowly takes over the reef',
+  ],
   [RESTART]: ["There's almost no recovery from this", "Let's start over again"],
 }
 let deathTimer = 0
@@ -89,14 +92,19 @@ function displayMessages() {
 }
 
 function displayPersistentMessage(message, pos) {
+  push()
+  setShadow()
   fill(255)
   text(message.text[pos], 480, 90 + 40 * pos)
+  pop()
 }
 
 function fadeInMessage(message, pos) {
+  push()
+  setShadow(message.opacity)
   fill(255, 255, 255, message.opacity)
   text(message.text[pos], 480, 90 + 40 * pos)
-
+  pop()
   if (message.opacity >= 255) {
     // done fading in, transition to next state
     message.state += 1
@@ -107,9 +115,12 @@ function fadeInMessage(message, pos) {
 }
 
 function fadeOutMessage(message) {
+  push()
+  setShadow(message.opacity)
   fill(255, 255, 255, message.opacity)
   text(message.text[0], 480, 90)
   text(message.text[1], 480, 90 + 40)
+  pop()
   if (message.opacity <= 0) {
     // destroy self
     queue.shift()
