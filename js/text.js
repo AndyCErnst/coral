@@ -14,7 +14,10 @@ const messages = {
     'Temperatures are dropping, the coral is recovering',
     'It can take 10 years to regrow and repopulate',
   ],
-  [WARMING]: ['The water is warming up', 'Unusually warm currents can damage coral'],
+  [WARMING]: [
+    'The water is warming up',
+    'Unusually warm currents can damage coral',
+  ],
   [WARM]: [
     'Even 1.1°C above normal harms symbiotic algae inside coral',
     'When these algae leave, the coral bleachers',
