@@ -43,6 +43,7 @@ Leap.loop((frame) => {
 function restartEverything() {
   temp = 0
   deathTimer = 0
+  zRunning = false
 }
 
 function createButtons() {
@@ -84,21 +85,20 @@ function getMousePos() {
   return createVector(xpos, ypos)
 }
 let algae
-let mask
+let algaeMask
 let pointerCanvas
 
 function preload() {
   algae = loadImage('images/algae.png')
-  mask = loadImage('images/grad3.png')
+  algaeMask = loadImage('images/grad3.png')
   initBackground()
 }
 
 function setup() {
   pixelDensity(1) // uncomment if slow, lowers effective resolution
-  // canvas.getContext('webgl2') // uncomment if slow, not sure what the side effects will be
   mainCanvas = createCanvas(960, 540)
   pointerCanvas = createCanvas(960, 540)
-  algae.mask(mask)
+  algae.mask(algaeMask)
   noStroke()
   noCursor()
   light = new Light()
@@ -136,6 +136,7 @@ function draw() {
   coralPattern(mousePos)
   displayBleach()
   drawAlgae()
+
   image(coralLayer, 0, 0)
   drawZedParticles()
 

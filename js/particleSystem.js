@@ -7,7 +7,7 @@ function setupZedPS() {
 
 let zRunning = false
 function drawZedParticles() {
-  if(zRunning) {
+  if(zRunning && everyNthFrame(2)) {
     system.addParticle()
   }
   system.run()

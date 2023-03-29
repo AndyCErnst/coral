@@ -211,6 +211,9 @@ function bleachCoral(temp) {
 }
 
 function drawAlgae() {
+  if(!deathTimer) {
+    return
+  }
   const { maxY, maxX, minY, minX } = coralBounds
   coralLayer.push()
   coralLayer.imageMode(CENTER)

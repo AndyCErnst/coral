@@ -12,7 +12,7 @@ class Fish {
   }
 
   update(x, y, mousePos) {
-    let dir = createVector()
+    let dir 
     // Calculating vector distance is expensive.
     // Since we don't need precise distance, do a very lazy measure.
     // This makes fish bounding boxes square, but it's hardly noticible
@@ -34,13 +34,13 @@ class Fish {
   }
 
   tail() {
-    noStroke()
     push()
+    noStroke()
     angleMode(DEGREES)
     translate(this.pos.x, this.pos.y)
     rotate(this.vel.heading() + 90)
     angleMode(RADIANS)
-    for (let i = 0; i < 17; i++) {
+    for (let i = 0; i < 17; i+=3) {
       fill(150 - i * 7, 150 - i * 7, 200)
 
       ellipse(
@@ -120,6 +120,24 @@ function initFish(num) {
 }
 
 function drawFish(pos) {
+  let desiredFish = 9
+  if (deathTimer) {
+    desiredFish = 0
+  } else if (temp > 1.5) {
+    desiredFish = Math.floor(desiredFish - temp * 3)
+  }
+  if (desiredFish > fish.length) {
+    fish.push(
+      new Fish(
+        random([-30, width + 30]),
+        random([-30, height + 30]),
+        random(0.3, 0.5)
+      )
+    )
+  } else if (desiredFish < fish.length) {
+    fish.pop()
+  }
+
   for (let i = 0; i < fish.length; i++) {
     let x = map(noise(i + frameCount), 0, 1, -0.1, 0.1)
     let y = map(noise(i + xoff + 1), 0, 1, -0.1, 0.1)

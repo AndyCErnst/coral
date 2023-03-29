@@ -46,6 +46,7 @@ function markTemperature(pos) {
     return
   }
 
+  // dead state overrides everything so exit early
   if (deathTimer) {
     zRunning = false
     deathTimer++
@@ -60,13 +61,17 @@ function markTemperature(pos) {
     return
   }
 
-  if (temp > 2 || temp < 1.1) {
-    zRunning = false
-  } else {
+  const warming = temp > avgTemp
+  const cooling = Math.min(pastTemps) === temp
+
+  // only show the zooxanthelae in a certain temp range and warming
+  if (warming && temp > 1.1 && temp < 2) {
     zRunning = true
+  } else {
+    zRunning = false
   }
 
-  if (temp > avgTemp) {
+  if (warming) {
     // WARMING
     if (temp > 1.2) {
       addMessage(WARM)
@@ -76,7 +81,7 @@ function markTemperature(pos) {
   } else if (temp < 0.5) {
     // COOL
     addMessage(HEALTHY)
-  } else if (temp < 2 && Math.min(pastTemps) === temp) {
+  } else if (temp < 2 && cooling) {
     // COOLING
     addMessage(HEALING)
   }
@@ -86,12 +91,12 @@ function displayTemperature() {
   push()
   setShadow()
   textAlign(LEFT)
-  fill(255, 255, 255)
-  if (temp > 2.5) {
-    textStyle(BOLD)
+  if (temp > 2) {
+    fill(227, 78, 36)
+  } else {
+    fill(255, 255, 255)
   }
   text(`+${temp.toFixed(1)}°C`, 790, 55)
-  textStyle(NORMAL)
   pop()
   thermometer()
 }

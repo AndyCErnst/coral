@@ -1,8 +1,8 @@
 let bg1
 let floor
 function initBackground() {
-    bg1 = loadImage('images/bg1b.png')
-    floor = loadImage('images/floor.png')
+    bg1 = loadImage('images/bg1b-opt.png')
+    floor = loadImage('images/floor-opt.png')
 }
 function displayBackground() {
   // 255, 255, 165 ugly green
@@ -15,8 +15,8 @@ function displayBackground() {
   } else {
     tint(125, 255, 255)
   }
-  image(bg1, 0, 0, width, height)
-  image(floor, 0, height-floor.height, width)
+  image(bg1, 0, 0)
+  image(floor, 0, height-floor.height)
   tint(255)
 }
 

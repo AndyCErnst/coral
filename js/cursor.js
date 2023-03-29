@@ -21,17 +21,18 @@ class Light {
     //       fill(255, 255 - cappedMov, 255 - cappedMov, 83 - i);
     // this create the circles of the light
     const cappedMov = 100
-    for (let i = 0; i < 25; i += 8) {
+    for (let i = 20; i < 40; i += 8) {
       strokeWeight(6);
       fill(255, 255 - cappedMov, 255 - cappedMov, 83 - i);
       ellipse(0, 0, i);
     }
 
     pop();
-    radialGradient(mainCanvas, x, y, 50, 
-      color(255, 255-cappedMov, 255-cappedMov, 100), 
-      color(255, 255-cappedMov, 255-cappedMov, 0))
-    ellipse(x, y, 300)
+
+    // radialGradient(mainCanvas, x, y, 50, 
+    //   color(255, 255-cappedMov, 255-cappedMov, 100), 
+    //   color(255, 255-cappedMov, 255-cappedMov, 0))
+    // ellipse(x, y, 300)
   }
 
   render(pos) {
@@ -77,6 +78,7 @@ class Particle_Smoke {
     // this.gravity = 0.01
   }
   display() {
+    noStroke()
     fill(this.r, this.g, this.b, this.opacity)
     ellipse(this.x, this.y, this.radius)
   }
