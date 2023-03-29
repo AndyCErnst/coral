@@ -22,6 +22,8 @@ function markTemperature(pos) {
   xMovement.push(pos.x)
   yMovement.push(pos.y)
 
+  // averaging is intended to even out the movement
+  // needs to be reexamined, it's probably not what we want
   movement = mag(
     max(xMovement) - min(xMovement),
     max(yMovement) - min(yMovement)

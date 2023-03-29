@@ -9,7 +9,7 @@ let handX2 = -100;
 let handY2 = -100;
 let light;
 let bleachMask
-const NUM_FISH = 11;
+const NUM_FISH = 8;
 
 let rate = 0
 const fps = []
@@ -86,7 +86,7 @@ function getMousePos() {
 }
 let algae
 let mask
-
+let pointerCanvas
 
 function preload() {
   algae = loadImage('images/algae.png')
@@ -96,8 +96,9 @@ function preload() {
 
 function setup() {
   // pixelDensity(1) // uncomment if slow, lowers effective resolution
-  // canvas.getContext('webgl') // uncomment if slow, not sure what the side effects will be
+  canvas.getContext('webgl2') // uncomment if slow, not sure what the side effects will be
   mainCanvas = createCanvas(960, 540);
+  pointerCanvas = createCanvas(960, 540);
   algae.mask(mask)
   noStroke()
   noCursor();
@@ -117,6 +118,7 @@ function drawLight(pos) {
   light.render(pos)
 }
 
+let mousePos = {x:0, y:0}
 // const ms = [5,6,6,6,6,6,6,6,6]
 function draw() {
   // let start = millis()
@@ -126,7 +128,7 @@ function draw() {
   // drawSurface()
   displayBackground()
   
-  const mousePos = getMousePos()
+  mousePos = getMousePos()
 
   drawAnemones()
   handleTemperature(mousePos)
@@ -135,6 +137,7 @@ function draw() {
   displayBleach()
   drawAlgae()
   image(coralLayer, 0, 0)
+  drawPointer()
 
   drawFish(mousePos)
   drawLight(mousePos)
@@ -143,7 +146,6 @@ function draw() {
   sunlight()
   displayMessages()
   debugInfo()
-
   // ms.shift()
   // ms.push(millis() - start)
   // if(everyNthFrame(10)){

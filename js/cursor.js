@@ -15,8 +15,12 @@ class Light {
     push();
     blendMode(ADD);
     translate(x, y);
-    const cappedMov = constrain(movement-100, 0, 100)
+    // responsiveness is too slow unless we capture mouse movement 
+    // more than every few frames
+    // const cappedMov = constrain(movement-100, 0, 100)
+    //       fill(255, 255 - cappedMov, 255 - cappedMov, 83 - i);
     // this create the circles of the light
+    const cappedMov = 100
     for (let i = 0; i < 25; i += 8) {
       strokeWeight(6);
       fill(255, 255 - cappedMov, 255 - cappedMov, 83 - i);
@@ -32,5 +36,58 @@ class Light {
 
   render(pos) {
     return this.move(pos).display();
+  }
+}
+
+
+let particles_smoke = []
+
+function mouseMoved() {
+  for (let i = 0; i < 4; i++) {
+    let p = new Particle_Smoke(mousePos)
+    particles_smoke.push(p)
+  }
+}
+
+function drawPointer() {
+  for (let i = particles_smoke.length - 1; i > -1; i--) {
+    particles_smoke[i].display()
+    particles_smoke[i].update()
+    // remove dead smoke
+    // this can be improved for performance
+    if (particles_smoke[i].opacity <= 0) {
+      particles_smoke.splice(i, 1)
+    }
+  }
+}
+
+class Particle_Smoke {
+  constructor() {
+    // physics
+    this.x = mousePos.x
+    this.y = mousePos.y
+    this.xv = (Math.random()*2-1) * 0.8
+    this.yv = (Math.random()*2-1) * 0.8
+      // style
+    this.r = 200
+    this.g = 100
+    this.b = 100
+    this.opacity = 180
+    this.radius = 9
+    // this.gravity = 0.01
+  }
+  display() {
+    fill(this.r, this.g, this.b, this.opacity)
+    ellipse(this.x, this.y, this.radius)
+  }
+  update() {
+    // style
+    this.opacity -= 4
+    this.radius += 0.2
+    // gravity
+    // this.yv += this.gravity
+    // movement
+    this.x += this.xv
+    this.y += this.yv
   }
 }
