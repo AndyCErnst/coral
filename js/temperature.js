@@ -92,7 +92,7 @@ function displayTemperature() {
   setShadow()
   textAlign(LEFT)
   fill(255, 255, 255)
-  text(`+${temp.toFixed(1)}°C`, 790, 55)
+  text(`+${temp.toFixed(1)}°C`, 790, 38)
   pop()
   thermometer()
 }
@@ -100,7 +100,7 @@ function displayTemperature() {
 function thermometer() {
   let thermoLen = 600
   const x = width / 2 - thermoLen / 2
-  const y = 40
+  const y = 20
 
   fill(150)
   stroke(255)

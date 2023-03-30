@@ -21,7 +21,7 @@ function debugInfo() {
     fps.push(getFrameRate())
     rate = Math.round(fps.reduce((f, a) => f + a, 0) / fps.length)
   }
-  textSize(32)
+  textSize(28)
   textAlign(LEFT)
   fill(255, 255, 255)
   text('fps: ' + rate, 30, 30)
@@ -86,10 +86,11 @@ function getMousePos() {
 }
 let algae
 let algaeMask
-
+let baseFont
 function preload() {
   algae = loadImage('images/algae.png')
   algaeMask = loadImage('images/grad3.png')
+  baseFont = loadFont('fonts/Poppins-Medium.ttf')
   preloadBackground()
   preloadWave()
 }
@@ -97,6 +98,7 @@ function preload() {
 function setup() {
   // pixelDensity(1) // uncomment if slow, lowers effective resolution
   mainCanvas = createCanvas(960, 540)
+  textFont(baseFont)
   setupWave()
   algae.mask(algaeMask)
   noStroke()

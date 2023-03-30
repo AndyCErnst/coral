@@ -22,8 +22,8 @@ class Light {
     // this create the circles of the light
     const cappedMov = 100
     for (let i = 0; i < 40; i += 15) {
-      // strokeWeight(6);
-      fill(255, 255 - cappedMov, 255 - cappedMov, 83 - i);
+      noStroke()
+      fill(255, 255 - cappedMov, 255 - cappedMov, 133 - i);
       ellipse(0, 0, i);
     }
 

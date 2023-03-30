@@ -26,10 +26,11 @@ function drawWave() {
 	// Canvas.circle(width/2, height/2, 200);
 
   WebGL.rect(0, 0, width, height);
+  push()
 	blendMode(SOFT_LIGHT)
   tint(255, 100)
   image(WebGL, 0, 0);
-  blendMode(BLEND)
+  pop()
 }
 
 // ref: https://github.com/stegu/webgl-noise/blob/master/src/cellular3D.glsl

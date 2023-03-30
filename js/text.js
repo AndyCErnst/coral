@@ -94,7 +94,7 @@ function displayMessages() {
   }
 }
 
-const textVertPos = 95
+const textVertPos = 75
 
 function displayPersistentMessage(message, pos) {
   push()
