@@ -27,7 +27,7 @@ function drawWave() {
 
   WebGL.rect(0, 0, width, height);
 	blendMode(SOFT_LIGHT)
-  tint(255, 200)
+  tint(255, 100)
   image(WebGL, 0, 0);
   blendMode(BLEND)
 }

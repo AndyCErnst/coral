@@ -15,7 +15,7 @@ function createAnemones() {
 }
 
 function drawAnemones() {
-  stroke(15, 166, 45, 120 - 40*constrain(temp, 1, 3))
+  stroke(2, 184, 38, 150 - 40*constrain(temp, 1, 3))
   angleMode(RADIANS)
   const t = deathTimer ? MAX_TEMP : temp
   const growthFactor = constrain(13 - 4 * t, 0, 10)

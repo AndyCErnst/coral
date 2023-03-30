@@ -108,7 +108,7 @@ function thermometer() {
 
   noStroke()
   //255, 10, 27
-  fill(240, map(temp, 0, MAX_TEMP, 240, 10), map(temp, 0, MAX_TEMP, 240, 27))
+  fill(240, map(temp, 0, MAX_TEMP, 240, 83), map(temp, 0, MAX_TEMP, 240, 64))
   let redLen = map(temp, 0, MAX_TEMP, 10, thermoLen - 6)
   rect(3 + x, y + 3, redLen, 10, 20)
 }

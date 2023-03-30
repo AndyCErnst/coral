@@ -94,19 +94,21 @@ function displayMessages() {
   }
 }
 
+const textVertPos = 95
+
 function displayPersistentMessage(message, pos) {
   push()
-  setShadow()
-  fill(255)
-  text(message.text[pos], 480, 90 + 40 * pos)
+  // setShadow()
+  fill(30)
+  text(message.text[pos], 480, textVertPos + 40 * pos)
   pop()
 }
 
 function fadeInMessage(message, pos) {
   push()
-  setShadow(message.opacity)
-  fill(255, 255, 255, message.opacity)
-  text(message.text[pos], 480, 90 + 40 * pos)
+  // setShadow(message.opacity)
+  fill(30, 30, 30, message.opacity)
+  text(message.text[pos], 480, textVertPos + 40 * pos)
   pop()
   if (message.opacity >= 255) {
     // done fading in, transition to next state
@@ -119,10 +121,10 @@ function fadeInMessage(message, pos) {
 
 function fadeOutMessage(message) {
   push()
-  setShadow(message.opacity)
-  fill(255, 255, 255, message.opacity)
-  text(message.text[0], 480, 90)
-  text(message.text[1], 480, 90 + 40)
+  // setShadow(message.opacity)
+  fill(30, 30, 30, message.opacity)
+  text(message.text[0], 480, textVertPos)
+  text(message.text[1], 480, textVertPos + 40)
   pop()
   if (message.opacity <= 0) {
     // destroy self
