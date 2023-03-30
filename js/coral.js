@@ -83,6 +83,7 @@ function drawCoral() {
   coralLayer.clear()
   const colorAdd = (temp < 1 ? 1 : temp) * 25
   coralLayer.drawingContext.fillStyle = `rgb(245,${75+colorAdd},${65+colorAdd})`
+  coralLayer.noStroke()
   coralLayer.beginShape()
   // coralLayer.stroke(245,245,245) // for debugging
   coralLayer.noStroke()

@@ -2,16 +2,15 @@
 let theShader;
 let WebGL;
 let Canvas;
-let img;
+let waveGif
 
-function preload(){
+function preloadWave(){
   theShader = new p5.Shader(this.renderer, vert, frag);
 }
 
 function setupWave() {
   pixelDensity(1);
   WebGL = createGraphics(width, height, WEBGL);
-  // Canvas = createGraphics(width, height);
   noStroke();
 }
 
@@ -28,7 +27,7 @@ function drawWave() {
 
   WebGL.rect(0, 0, width, height);
 	blendMode(SOFT_LIGHT)
-  tint(255, 100)
+  tint(255, 200)
   image(WebGL, 0, 0);
   blendMode(BLEND)
 }

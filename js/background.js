@@ -1,6 +1,6 @@
 let bg1
 let floor
-function initBackground() {
+function preloadBackground() {
     bg1 = loadImage('images/bg1b-opt.png')
     floor = loadImage('images/floor-opt.png')
 }

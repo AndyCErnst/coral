@@ -90,12 +90,12 @@ let algaeMask
 function preload() {
   algae = loadImage('images/algae.png')
   algaeMask = loadImage('images/grad3.png')
-  initBackground()
-  theShader = new p5.Shader(this.renderer, vert, frag);
+  preloadBackground()
+  preloadWave()
 }
 
 function setup() {
-  pixelDensity(1) // uncomment if slow, lowers effective resolution
+  // pixelDensity(1) // uncomment if slow, lowers effective resolution
   mainCanvas = createCanvas(960, 540)
   setupWave()
   algae.mask(algaeMask)
