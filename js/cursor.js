@@ -43,9 +43,10 @@ class Light {
 
 let particles_smoke = []
 
-function mouseMoved() {
+function createCursorEffect(pos) {
+  print(pos)
   for (let i = 0; i < 4; i++) {
-    let p = new Particle_Smoke(mousePos)
+    let p = new Particle_Smoke(pos)
     particles_smoke.push(p)
   }
 }
@@ -63,10 +64,10 @@ function drawPointerSmoke() {
 }
 
 class Particle_Smoke {
-  constructor() {
+  constructor(pos) {
     // physics
-    this.x = mousePos.x
-    this.y = mousePos.y
+    this.x = pos.x
+    this.y = pos.y
     this.xv = (Math.random()*2-1) * 0.8
     this.yv = (Math.random()*2-1) * 0.8
       // style

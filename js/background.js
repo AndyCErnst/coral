@@ -10,8 +10,9 @@ function displayBackground() {
   // healthy 125, 255, 255
   // unhealth 255, 255, 255
   // ugly green 255, 255, 165
-  const t = deathTimer ? 3 : map(temp, 1, 3, 255, 0)
   image(bg2, 0, 0)
+  // make transparent when dead, or translucent when heating up
+  const t = deathTimer ? 3 : map(temp, 1, 3, 255, 0)
   tint(255, t)
   image(bg1, 0, 0)
   tint(255)

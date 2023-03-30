@@ -3,11 +3,10 @@ let debug = false
 let useMouse = true
 let mainCanvas
 let coralLayer
-let handX1 = 100
-let handY1 = 100
-let handX2 = -100
-let handY2 = -100
-let light
+let mousePos = { x: 0, y: 0 }
+let secondMousePos = { x: 0, y: 0 }
+let light1
+let light2
 let bleachMask
 const NUM_FISH = 8
 
@@ -25,18 +24,22 @@ function debugInfo() {
   textAlign(LEFT)
   fill(255, 255, 255)
   text('fps: ' + rate, 30, 30)
-  // text('total bleaching: ' + totalBleaching, 30, 60)
 }
 
 Leap.loop((frame) => {
-  if (frame.hands.length > 0) {
+  if(useMouse) {
+    mousePos.x = mouseX
+    mousePos.y = mouseY
+  } else if (frame.hands.length > 0) {
     let [hand1, hand2] = frame.hands
-    handX1 = hand1.stabilizedPalmPosition[0]
-    handY1 = hand1.stabilizedPalmPosition[1]
-    if (hand2) {
-      handX2 = hand2.stabilizedPalmPosition[0]
-      handY2 = hand2.stabilizedPalmPosition[1]
-    }
+    const [x,y] = hand1.stabilizedPalmPosition
+    const [x2, y2] = hand2?.stabilizedPalmPosition ?? []
+    // hands have odd range and behave irratically near the boundaries
+    // need to `map` significantly inside these bounds to avoid "sticking"
+    mousePos.x = map(x, -280, 100, 0, width)
+    mousePos.y = map(y, 50, 550, height, 0)
+    secondMousePos.x = x2 ? map(x2, -280, 100, 0, width) : undefined
+    secondMousePos.y = y2 ? map(y2, 50, 550, height, 0) : undefined
   }
 })
 
@@ -74,16 +77,6 @@ function createButtons() {
   })
 }
 
-// get mouse or hand position
-function getMousePos() {
-  // hands have odd range and behave irratically near the boundaries
-  // need to `map` significantly inside these bounds to avoid "sticking"
-  // X Range -386.557 269.861
-  // Y Range 75.7235  688.421
-  let xpos = useMouse ? mouseX : map(handX1, -280, 100, 0, width)
-  let ypos = useMouse ? mouseY : map(handY1, 50, 550, height, 0)
-  return createVector(xpos, ypos)
-}
 let algae
 let algaeMask
 let baseFont
@@ -103,7 +96,8 @@ function setup() {
   algae.mask(algaeMask)
   noStroke()
   noCursor()
-  light = new Light()
+  light1 = new Light()
+  light2 = new Light()
   initFish(NUM_FISH)
   // surfaceSetup()
   createButtons()
@@ -117,11 +111,13 @@ function setup() {
 
 // light "source" hand indicator
 function drawCursor(pos) {
-  light.render(pos)
+  light1.render(pos)
+  if (secondMousePos.x) {
+    light2.render(secondMousePos)
+  }
   drawPointerSmoke()
 }
 
-let mousePos = { x: 0, y: 0 }
 // const ms = [5,6,6,6,6,6,6,6,6]
 function draw() {
   // let start = millis()
@@ -130,7 +126,6 @@ function draw() {
   // drawSurface()
 
   // background
-  mousePos = getMousePos()
   displayBackground()
   drawAnemones()
 
@@ -145,8 +140,13 @@ function draw() {
   drawFish(mousePos)
   drawBubble()
   drawWave()
-  
+
   // displays on top of simulation
+  if(!useMouse) {
+    // can't use `mouseMoved` listener for Leap motion so cursor effect is always on
+    createCursorEffect(mousePos)
+    secondMousePos.x ? createCursorEffect(secondMousePos) : undefined
+  }
   drawCursor(mousePos)
   sunlight()
   handleTemperature(mousePos)
@@ -163,4 +163,8 @@ function draw() {
 
 function mouseClicked() {
   console.log(mouseX, mouseY)
+}
+
+function mouseMoved() {
+  createCursorEffect(mousePos)
 }
