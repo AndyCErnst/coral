@@ -86,18 +86,18 @@ function getMousePos() {
 }
 let algae
 let algaeMask
-let pointerCanvas
 
 function preload() {
   algae = loadImage('images/algae.png')
   algaeMask = loadImage('images/grad3.png')
   initBackground()
+  theShader = new p5.Shader(this.renderer, vert, frag);
 }
 
 function setup() {
   pixelDensity(1) // uncomment if slow, lowers effective resolution
   mainCanvas = createCanvas(960, 540)
-  pointerCanvas = createCanvas(960, 540)
+  setupWave()
   algae.mask(algaeMask)
   noStroke()
   noCursor()
@@ -114,8 +114,9 @@ function setup() {
 }
 
 // light "source" hand indicator
-function drawLight(pos) {
+function drawCursor(pos) {
   light.render(pos)
+  drawPointerSmoke()
 }
 
 let mousePos = { x: 0, y: 0 }
@@ -123,29 +124,28 @@ let mousePos = { x: 0, y: 0 }
 function draw() {
   // let start = millis()
   xoff += 0.01
-
-  // background(117, 196, 226)
   background(226, 226, 255)
   // drawSurface()
-  displayBackground()
 
+  // background
   mousePos = getMousePos()
-
+  displayBackground()
   drawAnemones()
+
+  // foreground
   drawCoral()
   coralPattern(mousePos)
   displayBleach()
   drawAlgae()
-
   image(coralLayer, 0, 0)
   drawZedParticles()
 
   drawFish(mousePos)
-  drawLight(mousePos)
   drawBubble()
-
+  drawWave()
+  
   // displays on top of simulation
-  drawPointer()
+  drawCursor(mousePos)
   sunlight()
   handleTemperature(mousePos)
   displayMessages()

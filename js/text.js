@@ -19,11 +19,11 @@ const messages = {
     'Unusually warm currents can damage coral',
   ],
   [WARM]: [
-    'Even 1.1°C above normal harms symbiotic algae inside coral',
-    'When these algae leave, the coral bleachers',
+    'Just 1.1°C above normal will harm the algae inside coral',
+    'When these algae leave, coral bleaches',
   ],
   [DYING]: [
-    'Without food from symbiotic plants, coral dies',
+    'Without food from the symbiotic algae, coral dies',
     'It leaves a shell-like skeleton behind',
   ],
   [DEAD]: [

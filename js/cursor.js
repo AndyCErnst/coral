@@ -50,7 +50,7 @@ function mouseMoved() {
   }
 }
 
-function drawPointer() {
+function drawPointerSmoke() {
   for (let i = particles_smoke.length - 1; i > -1; i--) {
     particles_smoke[i].display()
     particles_smoke[i].update()
