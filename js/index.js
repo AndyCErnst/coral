@@ -29,12 +29,13 @@ function debugInfo() {
 Leap.loop((frame) => {
   if (frame.hands.length > 0) {
     let [hand1, hand2] = frame.hands
-    const [x, y] = hand1.stabilizedPalmPosition
-    const [x2, y2] = hand2?.stabilizedPalmPosition ?? []
+    const x = hand1.stabilizedPalmPosition?.[0] ?? 0
+    const y = hand1.stabilizedPalmPosition?.[1] ?? 0
+    const x2 = hand2?.stabilizedPalmPosition?.[0]
+    const y2 = hand2?.stabilizedPalmPosition?.[1] 
     // hands have odd range and behave irratically near the boundaries
     // need to `map` significantly inside these bounds to avoid "sticking"
-    mousePos.x = map(x, -280, 100, 0, width)
-    mousePos.y = map(y, 50, 550, height, 0)
+    mousePos = createVector(map(x, -280, 100, 0, width),  map(y, 50, 550, height, 0)) 
     secondMousePos.x = x2 ? map(x2, -280, 100, 0, width) : undefined
     secondMousePos.y = y2 ? map(y2, 50, 550, height, 0) : undefined
   }
@@ -180,6 +181,7 @@ function mouseMoved() {
 let fullscreen = false
 function keyPressed() {
   if (!fullscreen) {
+    fullscreen = true
     mainCanvas.canvas.requestFullscreen()
   } else if (keyCode === 68) { // letter d (for debug)
     useMouse = true
