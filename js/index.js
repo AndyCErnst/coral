@@ -29,10 +29,11 @@ function debugInfo() {
 Leap.loop((frame) => {
   if (frame.hands.length > 0) {
     let [hand1, hand2] = frame.hands
-    const x = hand1.stabilizedPalmPosition?.[0] ?? 0
-    const y = hand1.stabilizedPalmPosition?.[1] ?? 0
-    const x2 = hand2?.stabilizedPalmPosition?.[0]
-    const y2 = hand2?.stabilizedPalmPosition?.[1] 
+    // stabilizedPalmPosition doesn't seem to work on Windows
+    const x = hand1.palmPosition?.[0] ?? 0
+    const y = hand1.palmPosition?.[1] ?? 0
+    const x2 = hand2?.palmPosition?.[0]
+    const y2 = hand2?.palmPosition?.[1] 
     // hands have odd range and behave irratically near the boundaries
     // need to `map` significantly inside these bounds to avoid "sticking"
     mousePos.x = map(x, -280, 100, 0, width)
