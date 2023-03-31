@@ -35,7 +35,8 @@ Leap.loop((frame) => {
     const y2 = hand2?.stabilizedPalmPosition?.[1] 
     // hands have odd range and behave irratically near the boundaries
     // need to `map` significantly inside these bounds to avoid "sticking"
-    mousePos = createVector(map(x, -280, 100, 0, width),  map(y, 50, 550, height, 0)) 
+    mousePos.x = map(x, -280, 100, 0, width)
+    mousePos.y = map(y, 50, 550, height, 0)
     secondMousePos.x = x2 ? map(x2, -280, 100, 0, width) : undefined
     secondMousePos.y = y2 ? map(y2, 50, 550, height, 0) : undefined
   }
@@ -126,8 +127,6 @@ function drawCursor() {
 // const ms = [5,6,6,6,6,6,6,6,6]
 function draw() {
   // let start = millis()
-  mousePos.x = mouseX
-  mousePos.y = mouseY
   xoff += 0.01
   background(226, 226, 255)
   // drawSurface()
@@ -181,7 +180,7 @@ function mouseMoved() {
 let fullscreen = false
 function keyPressed() {
   if (!fullscreen) {
-    fullscreen = true
+    fullscreen= true
     mainCanvas.canvas.requestFullscreen()
   } else if (keyCode === 68) { // letter d (for debug)
     useMouse = true
