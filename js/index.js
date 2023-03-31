@@ -1,6 +1,6 @@
 let xoff = 0 // increased every frame, used as noise offset
 let debug = false
-let useMouse = true
+let useMouse = false
 let mainCanvas
 let coralLayer
 let mousePos = { x: 0, y: 0 }
@@ -182,6 +182,7 @@ function keyPressed() {
   if (!fullscreen) {
     mainCanvas.canvas.requestFullscreen()
   } else if (keyCode === 68) { // letter d (for debug)
+    useMouse = true
     debug = true
     createButtons()
   }
