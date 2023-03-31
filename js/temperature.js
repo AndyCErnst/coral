@@ -37,12 +37,11 @@ function markTemperature(pos) {
   }
   pastTemps.shift()
   pastTemps.push(temp)
-  const avgTemp = pastTemps.reduce((t, a) => t + a) / pastTemps.length
 
   if (temp === MAX_TEMP && deathTimer === 0) {
     // DEAD
     addMessage(DYING)
-    deathTimer++
+    deathTimer = 1
     return
   }
 
@@ -60,10 +59,9 @@ function markTemperature(pos) {
     }
     return
   }
-
+  const avgTemp = pastTemps.reduce((t, a) => t + a) / pastTemps.length
   const warming = temp > avgTemp
-  const cooling = Math.min(pastTemps) === temp
-
+  const cooling = Math.min(...pastTemps) === temp
   // only show the zooxanthelae in a certain temp range and warming
   if (warming && temp > 1.1 && temp < 2) {
     zRunning = true
@@ -90,6 +88,7 @@ function markTemperature(pos) {
 function displayTemperature() {
   push()
   setShadow()
+  noStroke()
   textAlign(LEFT)
   fill(255, 255, 255)
   text(`+${temp.toFixed(1)}°C`, 790, 38)

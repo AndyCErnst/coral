@@ -27,12 +27,9 @@ function debugInfo() {
 }
 
 Leap.loop((frame) => {
-  if(useMouse) {
-    mousePos.x = mouseX
-    mousePos.y = mouseY
-  } else if (frame.hands.length > 0) {
+  if (frame.hands.length > 0) {
     let [hand1, hand2] = frame.hands
-    const [x,y] = hand1.stabilizedPalmPosition
+    const [x, y] = hand1.stabilizedPalmPosition
     const [x2, y2] = hand2?.stabilizedPalmPosition ?? []
     // hands have odd range and behave irratically near the boundaries
     // need to `map` significantly inside these bounds to avoid "sticking"
@@ -89,6 +86,8 @@ function preload() {
 }
 
 function setup() {
+  textSize(28)
+  textAlign(LEFT)
   // pixelDensity(1) // uncomment if slow, lowers effective resolution
   mainCanvas = createCanvas(960, 540)
   textFont(baseFont)
@@ -100,18 +99,23 @@ function setup() {
   light2 = new Light()
   initFish(NUM_FISH)
   // surfaceSetup()
-  createButtons()
+  // createButtons()
   coralLayer = createGraphics(960, 540)
   drawCoral()
   clipMask()
   genCoralGrid()
   createAnemones()
   setupZedPS() // must be after coral grid
+  // if (!document.fullscreenElement) {
+  //   document.documentElement.requestFullscreen();
+  // } else if (document.exitFullscreen) {
+  //   document.exitFullscreen();
+  // }
 }
 
 // light "source" hand indicator
-function drawCursor(pos) {
-  light1.render(pos)
+function drawCursor() {
+  light1.render(mousePos)
   if (secondMousePos.x) {
     light2.render(secondMousePos)
   }
@@ -121,6 +125,8 @@ function drawCursor(pos) {
 // const ms = [5,6,6,6,6,6,6,6,6]
 function draw() {
   // let start = millis()
+  mousePos.x = mouseX
+  mousePos.y = mouseY
   xoff += 0.01
   background(226, 226, 255)
   // drawSurface()
@@ -142,18 +148,20 @@ function draw() {
   drawWave()
 
   // displays on top of simulation
-  if(!useMouse) {
+  if (!useMouse) {
     // can't use `mouseMoved` listener for Leap motion so cursor effect is always on
     createCursorEffect(mousePos)
     secondMousePos.x ? createCursorEffect(secondMousePos) : undefined
   }
-  drawCursor(mousePos)
+  drawCursor()
   sunlight()
   handleTemperature(mousePos)
   displayMessages()
 
   drawLines() // drawing mode only
-  debugInfo()
+  if (debug) {
+    debugInfo()
+  }
   // ms.shift()
   // ms.push(millis() - start)
   // if(everyNthFrame(10)){
@@ -167,4 +175,14 @@ function mouseClicked() {
 
 function mouseMoved() {
   createCursorEffect(mousePos)
+}
+
+let fullscreen = false
+function keyPressed() {
+  if (!fullscreen) {
+    mainCanvas.canvas.requestFullscreen()
+  } else if (keyCode === 68) { // letter d (for debug)
+    debug = true
+    createButtons()
+  }
 }

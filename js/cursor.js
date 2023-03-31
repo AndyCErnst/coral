@@ -44,7 +44,6 @@ class Light {
 let particles_smoke = []
 
 function createCursorEffect(pos) {
-  print(pos)
   for (let i = 0; i < 4; i++) {
     let p = new Particle_Smoke(pos)
     particles_smoke.push(p)
@@ -76,7 +75,6 @@ class Particle_Smoke {
     this.b = 100
     this.opacity = 180
     this.radius = Math.random() * 10 + 0.6
-    // this.gravity = 0.01
   }
   display() {
     noStroke()
@@ -87,8 +85,6 @@ class Particle_Smoke {
     // style
     this.opacity -= 4
     this.radius += 0.2
-    // gravity
-    // this.yv += this.gravity
     // movement
     this.x += this.xv
     this.y += this.yv

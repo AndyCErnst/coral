@@ -12,7 +12,7 @@ const messages = {
   ],
   [HEALING]: [
     'Temperatures are dropping, the coral is recovering',
-    'It can take 10 years to regrow and repopulate',
+    'It may take 10 years to regrow and repopulate',
   ],
   [WARMING]: [
     'The water is warming up',
@@ -58,6 +58,7 @@ function addMessage(type) {
   if (queue.length === 2) {
     queue.pop()
   }
+  print('Changing state to', type)
   // add new message
   queue.push(new Message(type))
 }

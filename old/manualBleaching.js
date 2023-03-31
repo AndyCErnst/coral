@@ -34,7 +34,7 @@ function displayBleach() {
 const BLEACH_RATE = 0.05
 const RECOVER_RATE = 0.005
 function coralIntersection(mousePos) {
-  if (everyNthFrame(5) || debug) {
+  if (everyNthFrame(5)) {
     coralGrid.forEach((section) => {
       const { x, y, w, h, c } = section
 
@@ -43,20 +43,20 @@ function coralIntersection(mousePos) {
           section.b += BLEACH_RATE
           print('section bleaching: ' + section.b)
         }
-        if (debug) {
-          fill(255 * section.b, 0, 255)
-          rect(x, y, w, h)
-        }
+        // if (debug) {
+        //   fill(255 * section.b, 0, 255)
+        //   rect(x, y, w, h)
+        // }
       } else if (section.b > 0) {
         section.b -= RECOVER_RATE
       }
-      if (debug) {
-        noFill()
-        strokeWeight(2)
-        stroke(255, 255, 200)
-        rect(x, y, w, h)
-        point(...c)
-      }
+      // if (debug) {
+      //   noFill()
+      //   strokeWeight(2)
+      //   stroke(255, 255, 200)
+      //   rect(x, y, w, h)
+      //   point(...c)
+      // }
     })
   }
 }
