@@ -180,7 +180,7 @@ function mouseMoved() {
 let fullscreen = false
 function keyPressed() {
   if (!fullscreen) {
-    mainCanvas.canvas.requestFullscreen()
+    // mainCanvas.canvas.requestFullscreen()
   } else if (keyCode === 68) { // letter d (for debug)
     useMouse = true
     debug = true

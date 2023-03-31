@@ -11,11 +11,13 @@ function handleTemperature(pos) {
     bleachCoral(temp)
   }
   displayTemperature()
+  displayCountdown()
 }
 
 let xMovement = [0, 0, 0, 0, 0]
 let yMovement = [0, 0, 0, 0, 0]
 const pastTemps = Array(10).fill(0)
+
 function markTemperature(pos) {
   xMovement.shift()
   yMovement.shift()
@@ -50,9 +52,9 @@ function markTemperature(pos) {
     zRunning = false
     deathTimer++
     // ALGAE moves in
-    if (deathTimer > 300) {
+    if (deathTimer > 280) {
       restartEverything()
-    } else if (deathTimer > 200) {
+    } else if (deathTimer > 180) {
       addMessage(RESTART)
     } else if (deathTimer > 50) {
       addMessage(DEAD)
@@ -83,6 +85,25 @@ function markTemperature(pos) {
     // COOLING
     addMessage(HEALING)
   }
+}
+
+function displayCountdown() {
+  // give the message a 10 count head start
+  if (deathTimer < 190) {
+    return
+  }
+  push()
+  ellipseMode(CENTER)
+  noFill()
+  stroke(255)
+  strokeWeight(10)
+  circle(width / 2, 200, 150)
+  fill(255)
+  noStroke()
+  angleMode(DEGREES)
+  const degrees = map(deathTimer, 190, 280, -90, 270)
+  arc(width / 2, 200, 120, 120, -90, degrees, PIE)
+  pop()
 }
 
 function displayTemperature() {
