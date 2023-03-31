@@ -7,8 +7,8 @@ const DEAD = 5
 const RESTART = 6
 const messages = {
   [HEALTHY]: [
-    'This coral reef is healthy',
-    'Move your hands to interact with it',
+    'Human activities affect life even far away',
+    'Move your hands to start warming the water',
   ],
   [HEALING]: [
     'Temperatures are dropping, the coral is recovering',

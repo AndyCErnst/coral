@@ -16,6 +16,7 @@ class Fish {
     // Calculating vector distance is expensive.
     // Since we don't need precise distance, do a very lazy measure.
     // This makes fish bounding boxes square, but it's hardly noticible
+    angleMode(DEGREES)
     const dis =
       Math.abs(this.pos.x - mousePos.x) + Math.abs(this.pos.y - mousePos.y)
     this.pos.add(this.vel)

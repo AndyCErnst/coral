@@ -16,7 +16,7 @@ function handleTemperature(pos) {
 
 let xMovement = [0, 0, 0, 0, 0]
 let yMovement = [0, 0, 0, 0, 0]
-const pastTemps = Array(10).fill(0)
+const pastTemps = Array(14).fill(0)
 
 function markTemperature(pos) {
   xMovement.shift()

@@ -12,6 +12,15 @@ class Light {
 
   display() {
     const { x, y } = this.pos
+
+    const cappedMov = 150
+
+    noStroke()
+    radialGradient(mainCanvas, x, y, 50, 
+      color(255, 255-cappedMov, 255-cappedMov, 250), 
+      color(255, 255-cappedMov, 255-cappedMov, 0))
+    ellipse(x, y, 200)
+
     push();
     blendMode(ADD);
     translate(x, y);
@@ -20,7 +29,6 @@ class Light {
     // const cappedMov = constrain(movement-100, 0, 100)
     //       fill(255, 255 - cappedMov, 255 - cappedMov, 83 - i);
     // this create the circles of the light
-    const cappedMov = 100
     for (let i = 0; i < 40; i += 15) {
       noStroke()
       fill(255, 255 - cappedMov, 255 - cappedMov, 133 - i);
@@ -29,10 +37,6 @@ class Light {
 
     pop();
 
-    // radialGradient(mainCanvas, x, y, 50, 
-    //   color(255, 255-cappedMov, 255-cappedMov, 100), 
-    //   color(255, 255-cappedMov, 255-cappedMov, 0))
-    // ellipse(x, y, 300)
   }
 
   render(pos) {

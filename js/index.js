@@ -3,6 +3,8 @@ let debug = false
 let useMouse = false
 let mainCanvas
 let coralLayer
+let oldMousePos = { x: 0, y: 0 }
+let oldMousePos2 = { x: 0, y: 0 }
 let mousePos = { x: 0, y: 0 }
 let secondMousePos = { x: 0, y: 0 }
 let light1
@@ -27,7 +29,7 @@ function debugInfo() {
 }
 
 Leap.loop((frame) => {
-  if (frame.hands.length > 0) {
+  if (!useMouse && frame.hands.length > 0) {
     let [hand1, hand2] = frame.hands
     // stabilizedPalmPosition doesn't seem to work on Windows
     const x = hand1.palmPosition?.[0] ?? 0
@@ -36,10 +38,10 @@ Leap.loop((frame) => {
     const y2 = hand2?.palmPosition?.[1] 
     // hands have odd range and behave irratically near the boundaries
     // need to `map` significantly inside these bounds to avoid "sticking"
-    mousePos.x = map(x, -280, 100, 0, width)
-    mousePos.y = map(y, 50, 550, height, 0)
-    secondMousePos.x = x2 ? map(x2, -280, 100, 0, width) : undefined
-    secondMousePos.y = y2 ? map(y2, 50, 550, height, 0) : undefined
+    oldMousePos = mousePos
+    mousePos = createVector(map(x, -200, 200, 0, width),  map(y, 50, 550, height, 0))
+    oldMousePos2 = secondMousePos
+    secondMousePos = createVector(x2 ? map(x2, -200, 200, 0, width) : undefined, y2 ? map(y2, 50, 550, height, 0) : undefined)
   }
 })
 
@@ -131,7 +133,16 @@ function draw() {
   xoff += 0.01
   background(226, 226, 255)
   // drawSurface()
-
+  if(useMouse) {
+    oldMousePos = mousePos
+    mousePos = createVector(mouseX, mouseY)
+  }
+  if(oldMousePos.x !== mousePos.x) {
+    createCursorEffect(mousePos)
+  }
+  if(oldMousePos2.x !== secondMousePos.x) {
+    createCursorEffect(secondMousePos)
+  }
   // background
   displayBackground()
   drawAnemones()
@@ -172,10 +183,6 @@ function draw() {
 
 function mouseClicked() {
   console.log(mouseX, mouseY)
-}
-
-function mouseMoved() {
-  createCursorEffect(mousePos)
 }
 
 let fullscreen = false
