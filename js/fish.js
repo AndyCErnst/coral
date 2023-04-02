@@ -1,4 +1,5 @@
 // Fish and light taken from https://editor.p5js.org/slow_izzm/sketches/YZtS2Rf_c, credit to slow_izzm
+const fishColors = [[252, 146, 8], [12, 83, 204], [150, 150, 200], [255, 31, 218], [232, 240, 10]]
 class Fish {
   constructor(x, y, varience) {
     this.varience = varience
@@ -9,6 +10,7 @@ class Fish {
     this.xoff = 0
     this.maxspeed = 0.5 / varience
     this.currMax = this.maxspeed
+    this.colors = random(fishColors)
   }
 
   update(x, y, mousePos) {
@@ -41,8 +43,9 @@ class Fish {
     translate(this.pos.x, this.pos.y)
     rotate(this.vel.heading() + 90)
     angleMode(RADIANS)
+    const [r,g,b] = this.colors
     for (let i = 0; i < 17; i+=4) {
-      fill(150 - i * 7, 150 - i * 7, 200)
+      fill(r - i * 7, g - i * 7, b)
 
       ellipse(
         Math.sin(this.xoff) * (i * this.varience),

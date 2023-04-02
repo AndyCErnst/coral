@@ -35,13 +35,19 @@ Leap.loop((frame) => {
     const x = hand1.palmPosition?.[0] ?? 0
     const y = hand1.palmPosition?.[1] ?? 0
     const x2 = hand2?.palmPosition?.[0]
-    const y2 = hand2?.palmPosition?.[1] 
+    const y2 = hand2?.palmPosition?.[1]
     // hands have odd range and behave irratically near the boundaries
     // need to `map` significantly inside these bounds to avoid "sticking"
     oldMousePos = mousePos
-    mousePos = createVector(map(x, -200, 200, 0, width),  map(y, 50, 550, height, 0))
+    mousePos = createVector(
+      map(x, -200, 200, 0, width),
+      map(y, 50, 550, height, 0)
+    )
     oldMousePos2 = secondMousePos
-    secondMousePos = createVector(x2 ? map(x2, -200, 200, 0, width) : undefined, y2 ? map(y2, 50, 550, height, 0) : undefined)
+    secondMousePos = createVector(
+      x2 ? map(x2, -200, 200, 0, width) : undefined,
+      y2 ? map(y2, 50, 550, height, 0) : undefined
+    )
   }
 })
 
@@ -131,14 +137,14 @@ function draw() {
   xoff += 0.01
   background(226, 226, 255)
   // drawSurface()
-  if(useMouse) {
+  if (useMouse) {
     oldMousePos = mousePos
     mousePos = createVector(mouseX, mouseY)
   }
-  if(oldMousePos.x !== mousePos.x) {
+  if (oldMousePos.x !== mousePos.x) {
     createCursorEffect(mousePos)
   }
-  if(oldMousePos2.x !== secondMousePos.x) {
+  if (oldMousePos2.x !== secondMousePos.x) {
     createCursorEffect(secondMousePos)
   }
   // background
@@ -185,12 +191,17 @@ function doubleClicked() {
 
 let fullscreen = false
 function keyPressed() {
-  if (!fullscreen) {
-    fullscreen= true
-    mainCanvas.canvas.requestFullscreen()
-  } else if (keyCode === 68) { // letter d (for debug)
+  if (keyCode === 68) {
+    // letter d (for debug)
     useMouse = true
     debug = true
     createButtons()
+  } else if (keyCode === 27) {
+    // escape
+    fullscreen = false
+  } else if (!fullscreen) {
+    // somehow only works once
+    fullscreen = true
+    mainCanvas.canvas.requestFullscreen()
   }
 }
