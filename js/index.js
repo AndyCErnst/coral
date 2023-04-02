@@ -68,14 +68,14 @@ function createButtons() {
   clearButton.mousePressed(() => {
     clearButton.html('clear')
     coralGrid.forEach((seg) => (seg.b = 0))
-    vertexes = []
+    drawingVerts = []
   })
   const drawingButton = createButton('Draw shape')
   totalButtonWidth += buttonMargin + drawingButton.size().width
   drawingButton.position(width - totalButtonWidth, height)
   drawingButton.mousePressed(() => {
     drawing = true
-    vertexes = []
+    drawingVerts = []
   })
 }
 
@@ -93,7 +93,7 @@ function preload() {
 function setup() {
   textSize(28)
   textAlign(LEFT)
-  // pixelDensity(1) // uncomment if slow, lowers effective resolution
+  pixelDensity(1) // uncomment if slow, lowers effective resolution
   mainCanvas = createCanvas(960, 540)
   textFont(baseFont)
   setupWave()
@@ -127,9 +127,7 @@ function drawCursor() {
   drawPointerSmoke()
 }
 
-// const ms = [5,6,6,6,6,6,6,6,6]
 function draw() {
-  // let start = millis()
   xoff += 0.01
   background(226, 226, 255)
   // drawSurface()
@@ -174,15 +172,15 @@ function draw() {
   if (debug) {
     debugInfo()
   }
-  // ms.shift()
-  // ms.push(millis() - start)
-  // if(everyNthFrame(10)){
-  //   print('time ', ms.reduce((m,acc)=>m+acc)/ms.length)
-  // }
 }
 
 function mouseClicked() {
   console.log(mouseX, mouseY)
+  drawingMouseClicked()
+}
+
+function doubleClicked() {
+  drawingDoubleClick()
 }
 
 let fullscreen = false

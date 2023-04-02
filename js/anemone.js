@@ -2,9 +2,9 @@
 // The original one is prettier, but much less performant.
 // These shrink and become transparent as temperature increases
 // These are one of the slowest part of the simulation, so caution is needed.
-
-const positions = [[110, 420],[920, 400], [231, 503]]
-let anemones = [[], [], []];
+//const positions = [[110, 420],[920, 400], [231, 503]]
+const positions = [[110, 420],[920, 400]]
+let anemones = [[], []];
 
 function createAnemones() {
   for(let a = 0; a < anemones.length; a++) {
