@@ -16,7 +16,7 @@ function handleTemperature(pos) {
 
 let xMovement = [0, 0, 0, 0, 0]
 let yMovement = [0, 0, 0, 0, 0]
-const pastTemps = Array(14).fill(0)
+const pastTemps = Array(20).fill(0)
 
 function markTemperature(pos) {
   xMovement.shift()
@@ -52,11 +52,11 @@ function markTemperature(pos) {
     zRunning = false
     deathTimer++
     // ALGAE moves in
-    if (deathTimer > 280) {
+    if (deathTimer > 200) {
       restartEverything()
-    } else if (deathTimer > 180) {
+    } else if (deathTimer > 110) {
       addMessage(RESTART)
-    } else if (deathTimer > 50) {
+    } else if (deathTimer > 40) {
       addMessage(DEAD)
     }
     return
@@ -89,7 +89,7 @@ function markTemperature(pos) {
 
 function displayCountdown() {
   // give the message a 10 count head start
-  if (deathTimer < 190) {
+  if (deathTimer < 120) {
     return
   }
   push()
@@ -101,7 +101,7 @@ function displayCountdown() {
   fill(255)
   noStroke()
   angleMode(DEGREES)
-  const degrees = map(deathTimer, 190, 280, -90, 270)
+  const degrees = map(deathTimer, 120, 200, -90, 270)
   arc(width / 2, 200, 120, 120, -90, degrees, PIE)
   pop()
 }

@@ -223,6 +223,6 @@ function drawAlgae() {
   const h = maxY - minY
   coralLayer.translate(minX + w/2, minY + h/2)
   coralLayer.rotate(-35)
-  coralLayer.image(algae, 0, Math.max(550 - 3 * deathTimer, 0), w+100, w+200)
+  coralLayer.image(algae, 0, Math.max(550 - 3.5 * deathTimer, 0), w+100, w+200)
   coralLayer.pop()
 }
