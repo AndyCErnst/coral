@@ -1,6 +1,6 @@
 let xoff = 0 // increased every frame, used as noise offset
 let debug = false
-let useMouse = false
+let useMouse = true
 let mainCanvas
 let coralLayer
 let oldMousePos = { x: 0, y: 0 }
